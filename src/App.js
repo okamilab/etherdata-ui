@@ -6,8 +6,11 @@ import AppBar from '@material-ui/core/AppBar';
 import Paper from '@material-ui/core/Paper';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
 
-import BlocksPerDayChart from './components/BlocksPerDayChart';
+import BlockStatChart from './components/BlockStatChart';
 
 const styles = theme => ({
   appBar: {
@@ -40,12 +43,15 @@ class App extends Component {
     super(props);
 
     this.state = {
-      data: []
+      data: [],
+      filter: 30
     };
+
+    this.filter = this.filter.bind(this);
   }
 
   init() {
-    fetch('http://localhost:7071/api/blocksPerDay')
+    fetch('http://localhost:7071/api/blocks/statPerDay')
       .then(response => response.json())
       .then(data => this.setState({ data }));
   }
@@ -54,8 +60,21 @@ class App extends Component {
     this.init();
   }
 
+  filter(event) {
+    this.setState({
+      filter: event.target.value
+    });
+  }
+
   render() {
     const { classes } = this.props;
+
+    let data = this.state.data;
+    if (this.state.filter) {
+      const now = new Date();
+      const filterTime = (new Date()).setDate(now.getDate() - this.state.filter);
+      data = data.filter(x => new Date(x.date) >= filterTime)
+    }
 
     return (
       <React.Fragment>
@@ -69,10 +88,20 @@ class App extends Component {
         </AppBar>
         <main className={classes.layout}>
           <Paper className={classes.paper}>
-            <Typography component="h1" variant="h5" align="center">
+            {/* <Typography component="h1" variant="h5" align="center">
               Blocks per day
-            </Typography>
-            <BlocksPerDayChart data={this.state.data} />
+            </Typography> */}
+            <BlockStatChart data={data} />
+            <Divider style={{ marginTop: 30, marginBottom: 10 }} />
+            <Select
+              value={this.state.filter}
+              onChange={this.filter}
+              name="filter"
+            >
+              <MenuItem value={30}>Last 30 days</MenuItem>
+              <MenuItem value={365}>Last year</MenuItem>
+              <MenuItem value={0}>All time</MenuItem>
+            </Select>
           </Paper>
         </main>
       </React.Fragment>
