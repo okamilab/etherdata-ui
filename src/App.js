@@ -36,6 +36,10 @@ const styles = theme => ({
       padding: theme.spacing.unit * 3,
     },
   },
+  divider: {
+    marginTop: 30,
+    marginBottom: 10
+  }
 });
 
 class App extends Component {
@@ -88,11 +92,8 @@ class App extends Component {
         </AppBar>
         <main className={classes.layout}>
           <Paper className={classes.paper}>
-            {/* <Typography component="h1" variant="h5" align="center">
-              Blocks per day
-            </Typography> */}
             <BlockStatChart data={data} />
-            <Divider style={{ marginTop: 30, marginBottom: 10 }} />
+            <Divider className={classes.divider} />
             <Select
               value={this.state.filter}
               onChange={this.filter}

@@ -15,11 +15,14 @@ import moment from 'moment';
 const styles = theme => ({
   tab: {
     padding: 25,
+  },
+  box: {
+    marginBottom: 25
   }
 });
 
 function formatXAxis(tick) {
-  return moment(tick).format('MMM d YY')
+  return moment(tick).format('MMM D YY');
 }
 
 function formatYAxisDefault(tick) {
@@ -70,9 +73,7 @@ class BlocksPerDayChart extends Component {
           dataKey: "size",
           selected: false,
           color: "#9E9E9E",
-          format: (t) => {
-            return (t / Math.pow(1024, 2)).toFixed(1) + 'M';
-          }
+          format: (t) => (t / Math.pow(1024, 2)).toFixed(1) + 'M'
         }
       ]
     });
@@ -103,23 +104,21 @@ class BlocksPerDayChart extends Component {
 
     return (
       <React.Fragment>
-        <div>
-          <Box display="flex" flexDirection="row" p={1} m={1}>
-            {
-              this.state.tabs.map((t) => {
-                const selectedStyle = t.selected ? { background: t.color } : null;
-                return (
-                  <Tab
-                    key={t.id}
-                    label={t.title}
-                    className={classes.tab}
-                    style={selectedStyle}
-                    onClick={() => { this.selectTab(t.id) }} />
-                );
-              })
-            }
-          </Box>
-        </div>
+        <Box display="flex" flexDirection="row" className={classes.box}>
+          {
+            this.state.tabs.map((t) => {
+              const selectedStyle = t.selected ? { background: t.color } : null;
+              return (
+                <Tab
+                  key={t.id}
+                  label={t.title}
+                  className={classes.tab}
+                  style={selectedStyle}
+                  onClick={() => { this.selectTab(t.id) }} />
+              );
+            })
+          }
+        </Box>
         {/* 99% per https://github.com/recharts/recharts/issues/172 */}
         <ResponsiveContainer width="99%" height={320}>
           <LineChart data={data} margin={{ bottom: 30 }}>
@@ -140,8 +139,6 @@ class BlocksPerDayChart extends Component {
                 );
               })
             }
-            {/* <YAxis yAxisId="left" orientation="left" stroke="#82ca9d" /> */}
-            {/* <YAxis yAxisId="right" orientation="right" stroke="#2a5a9d" tickFormatter={formatYAxis} /> */}
             <CartesianGrid vertical={false} strokeDasharray="3 3" />
             <Tooltip />
             {
