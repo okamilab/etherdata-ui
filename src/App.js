@@ -55,7 +55,7 @@ class App extends Component {
   }
 
   init() {
-    fetch('http://localhost:7071/api/blocks/statPerDay')
+    fetch('http://localhost:7071/api/blocks/stat')
       .then(response => response.json())
       .then(data => this.setState({ data }));
   }
