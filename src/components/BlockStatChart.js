@@ -129,7 +129,7 @@ class BlocksPerDayChart extends Component {
         </Box>
         {/* 99% per https://github.com/recharts/recharts/issues/172 */}
         <ResponsiveContainer width="99%" height={320}>
-          <LineChart data={data} margin={{ bottom: 30 }}>
+          <LineChart data={data} margin={{ bottom: 20 }}>
             <XAxis
               dataKey="date"
               tickFormatter={formatXAxis}
