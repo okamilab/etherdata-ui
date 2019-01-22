@@ -69,6 +69,14 @@ class BlocksPerDayChart extends Component {
         },
         {
           id: 3,
+          title: "Gas",
+          dataKey: "gas_used",
+          selected: false,
+          color: "#1A73E8",
+          format: (t) => (t / 1000000000) + 'B'
+        },
+        {
+          id: 4,
           title: "Size",
           dataKey: "size",
           selected: false,
@@ -122,7 +130,11 @@ class BlocksPerDayChart extends Component {
         {/* 99% per https://github.com/recharts/recharts/issues/172 */}
         <ResponsiveContainer width="99%" height={320}>
           <LineChart data={data} margin={{ bottom: 30 }}>
-            <XAxis dataKey="date" tick={{ angle: -45 }} dy={20} tickFormatter={formatXAxis} />
+            <XAxis
+              dataKey="date"
+              tickFormatter={formatXAxis}
+              height={20}
+              style={{ fontSize: 10 }} />
             {
               this.state.tabs.map((t) => {
                 if (!t.selected) {
@@ -135,7 +147,9 @@ class BlocksPerDayChart extends Component {
                     yAxisId={t.id}
                     orientation="left"
                     stroke={t.color}
-                    tickFormatter={t.format} />
+                    tickFormatter={t.format}
+                    width={40}
+                    style={{ fontSize: 10 }} />
                 );
               })
             }

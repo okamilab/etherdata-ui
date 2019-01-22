@@ -37,7 +37,7 @@ const styles = theme => ({
     },
   },
   divider: {
-    marginTop: 30,
+    marginTop: 10,
     marginBottom: 10
   }
 });
@@ -115,4 +115,3 @@ App.propTypes = {
 };
 
 export default withStyles(styles)(App);
-
