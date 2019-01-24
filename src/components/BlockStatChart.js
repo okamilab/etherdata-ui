@@ -29,7 +29,7 @@ function formatYAxisDefault(tick) {
   return tick;
 }
 
-class BlocksPerDayChart extends Component {
+class BlockStatChart extends Component {
   constructor(props) {
     super(props);
 
@@ -179,9 +179,9 @@ class BlocksPerDayChart extends Component {
   }
 }
 
-BlocksPerDayChart.propTypes = {
+BlockStatChart.propTypes = {
   classes: PropTypes.object.isRequired,
   data: PropTypes.array
 };
 
-export default withStyles(styles)(BlocksPerDayChart);
+export default withStyles(styles)(BlockStatChart);
