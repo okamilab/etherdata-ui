@@ -46,7 +46,7 @@ class BlockStatChart extends Component {
         {
           id: 0,
           title: "Blocks",
-          dataKey: "count",
+          dataKey: "c",
           selected: true,
           color: "#DB4437",
           format: formatYAxisDefault
@@ -54,7 +54,7 @@ class BlockStatChart extends Component {
         {
           id: 1,
           title: "Difficulty",
-          dataKey: "avg_difficulty",
+          dataKey: "a_d",
           selected: false,
           color: "#F6BF26",
           format: (t) => t + 'G'
@@ -62,7 +62,7 @@ class BlockStatChart extends Component {
         {
           id: 2,
           title: "Transactions",
-          dataKey: "tx_count",
+          dataKey: "tx_c",
           selected: false,
           color: "#0F9D58",
           format: (t) => (t / 1000) + 'K'
@@ -70,7 +70,7 @@ class BlockStatChart extends Component {
         {
           id: 3,
           title: "Gas",
-          dataKey: "gas_used",
+          dataKey: "g_u",
           selected: false,
           color: "#1A73E8",
           format: (t) => (t / 1000000000) + 'B'
@@ -78,7 +78,7 @@ class BlockStatChart extends Component {
         {
           id: 4,
           title: "Size",
-          dataKey: "size",
+          dataKey: "s",
           selected: false,
           color: "#9E9E9E",
           format: (t) => (t / Math.pow(1024, 2)).toFixed(1) + 'M'
@@ -131,7 +131,7 @@ class BlockStatChart extends Component {
         <ResponsiveContainer width="99%" height={320}>
           <LineChart data={data} margin={{ bottom: 20 }}>
             <XAxis
-              dataKey="date"
+              dataKey="d"
               tickFormatter={formatXAxis}
               height={20}
               style={{ fontSize: 10 }} />

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import dotenv from 'dotenv';
 import withStyles from '@material-ui/core/styles/withStyles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
@@ -12,6 +13,8 @@ import Grid from '@material-ui/core/Grid';
 
 import BlockStatChart from './components/BlockStatChart';
 import TokenStatView from './components/TokenStatView';
+
+dotenv.config();
 
 const styles = theme => ({
   appBar: {
@@ -65,19 +68,19 @@ class App extends Component {
   }
 
   init() {
-    fetch('http://localhost:7071/api/blocks/stat')
+    fetch(`${process.env.REACT_APP_API_ENDPOINT}/api/blocks/stat`, { mode: 'cors' })
       .then(response => response.json())
       .then(data => this.setState({ blocks: data }));
 
-    fetch('http://localhost:7071/api/tokens/stat30')
+    fetch(`${process.env.REACT_APP_API_ENDPOINT}/api/tokens/stat30`, { mode: 'cors' })
       .then(response => response.json())
       .then(data => this.setState({ tokens30: data }));
 
-    fetch('http://localhost:7071/api/tokens/stat365')
+    fetch(`${process.env.REACT_APP_API_ENDPOINT}/api/tokens/stat365`, { mode: 'cors' })
       .then(response => response.json())
       .then(data => this.setState({ tokens365: data }));
 
-    fetch('http://localhost:7071/api/tokens/stat')
+    fetch(`${process.env.REACT_APP_API_ENDPOINT}/api/tokens/stat`, { mode: 'cors' })
       .then(response => response.json())
       .then(data => this.setState({ tokens: data }));
   }
@@ -111,7 +114,7 @@ class App extends Component {
     if (this.state.filter) {
       const now = new Date();
       const filterTime = (new Date()).setDate(now.getDate() - this.state.filter);
-      blocks = blocks.filter(x => new Date(x.date) >= filterTime)
+      blocks = blocks.filter(x => new Date(x.d) >= filterTime)
     }
 
     return (
