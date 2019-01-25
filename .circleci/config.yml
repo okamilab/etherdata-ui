@@ -25,6 +25,10 @@ jobs:
       - TARGET_BRANCH: gh-pages
 
     steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "78:09:d9:42:4f:6a:36:4a:8e:58:b4:23:e6:10:fb:8e"
+
       - checkout
 
       # Download and cache dependencies
