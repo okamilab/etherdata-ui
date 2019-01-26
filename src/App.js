@@ -53,7 +53,8 @@ const styles = theme => ({
   },
   footer: {
     textAlign: 'center',
-    paddingBottom: theme.spacing.unit
+    paddingTop: theme.spacing.unit * 3,
+    paddingBottom: theme.spacing.unit * 2
   }
 });
 
@@ -168,7 +169,7 @@ class App extends Component {
             <BlockStatChart data={this.getBlocks()} />
           </Paper>
           <Grid container spacing={24}>
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={6}>
               <Paper className={classes.paper}>
                 <Typography variant="h6" color="inherit" noWrap>
                   Most used tokens
@@ -179,7 +180,12 @@ class App extends Component {
           </Grid>
         </main>
         <div className={classes.footer}>
-          <span>©</span> {(new Date()).getFullYear()} Etherdata | <Link href={process.env.REACT_APP_GITHUB}>GitHub</Link>
+          <div>
+            Etherdata is a Analytics Platform for Ethereum
+          </div>
+          <div>
+            <span>©</span> {(new Date()).getFullYear()} Etherdata | <Link href={process.env.REACT_APP_GITHUB}>GitHub</Link>
+          </div>
         </div>
       </React.Fragment>
     );

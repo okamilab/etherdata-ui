@@ -9,12 +9,18 @@ import YAxis from 'recharts/lib/cartesian/YAxis';
 import CartesianGrid from 'recharts/lib/cartesian/CartesianGrid';
 import Tooltip from 'recharts/lib/component/Tooltip';
 import { unstable_Box as Box } from '@material-ui/core/Box';
-import Tab from '@material-ui/core/Tab';
 import moment from 'moment';
 
 const styles = theme => ({
   tab: {
-    padding: 25,
+    padding: theme.spacing.unit,
+    opacity: 0.7,
+    [theme.breakpoints.up(500 + theme.spacing.unit * 3 * 2)]: {
+      padding: theme.spacing.unit * 2
+    },
+    [theme.breakpoints.up(700 + theme.spacing.unit * 3 * 2)]: {
+      padding: theme.spacing.unit * 3
+    },
   },
   box: {
     marginBottom: 25
@@ -117,12 +123,13 @@ class BlockStatChart extends Component {
             this.state.tabs.map((t) => {
               const selectedStyle = t.selected ? { background: t.color } : null;
               return (
-                <Tab
+                <Box
                   key={t.id}
-                  label={t.title}
                   className={classes.tab}
                   style={selectedStyle}
-                  onClick={() => { this.selectTab(t.id) }} />
+                  onClick={() => { this.selectTab(t.id) }} >
+                  {t.title}
+                </Box>
               );
             })
           }
