@@ -8,7 +8,6 @@ import XAxis from 'recharts/lib/cartesian/XAxis';
 import YAxis from 'recharts/lib/cartesian/YAxis';
 import CartesianGrid from 'recharts/lib/cartesian/CartesianGrid';
 import Tooltip from 'recharts/lib/component/Tooltip';
-import { unstable_Box as Box } from '@material-ui/core/Box';
 import moment from 'moment';
 
 const styles = theme => ({
@@ -19,8 +18,14 @@ const styles = theme => ({
   },
   tab: {
     cursor: 'pointer',
-    padding: theme.spacing.unit * 2,
-    opacity: 0.7
+    padding: theme.spacing.unit,
+    opacity: 0.7,
+    [theme.breakpoints.up(500 + theme.spacing.unit * 3 * 2)]: {
+      padding: theme.spacing.unit * 2
+    },
+    [theme.breakpoints.up(700 + theme.spacing.unit * 3 * 2)]: {
+      padding: theme.spacing.unit * 3
+    },
   }
 });
 
@@ -94,13 +99,7 @@ class BlockStatChart extends Component {
     const { tabs } = this.state;
 
     this.setState({
-      tabs: tabs.map(t => {
-        if (t.id !== id) {
-          return t;
-        }
-
-        return { ...t, selected: !t.selected };
-      })
+      tabs: tabs.map(t => t.id === id ? { ...t, selected: !t.selected } : t)
     });
   }
 
@@ -120,13 +119,13 @@ class BlockStatChart extends Component {
             this.state.tabs.map((t) => {
               const selectedStyle = t.selected ? { background: t.color } : null;
               return (
-                <Box
+                <div
                   key={t.id}
                   className={classes.tab}
                   style={selectedStyle}
                   onClick={() => { this.selectTab(t.id) }} >
                   {t.title}
-                </Box>
+                </div>
               );
             })
           }
