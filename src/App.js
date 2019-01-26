@@ -62,6 +62,7 @@ class App extends Component {
     super(props);
 
     this.state = {
+      blocks30: [],
       blocks: [],
       tokens30: [],
       tokens365: [],
@@ -73,21 +74,29 @@ class App extends Component {
   }
 
   init() {
-    fetch(`${process.env.REACT_APP_API_ENDPOINT}/api/blocks/stat`, { mode: 'cors' })
+    fetch(`${process.env.REACT_APP_API_ENDPOINT}/api/v0.1/blocks/stat30`, { mode: 'cors' })
       .then(response => response.json())
-      .then(data => this.setState({ blocks: data }));
+      .then(data => {
+        this.setState({ blocks30: data });
 
-    fetch(`${process.env.REACT_APP_API_ENDPOINT}/api/tokens/stat30`, { mode: 'cors' })
-      .then(response => response.json())
-      .then(data => this.setState({ tokens30: data }));
+        fetch(`${process.env.REACT_APP_API_ENDPOINT}/api/v0.1/blocks/stat`, { mode: 'cors' })
+          .then(response => response.json())
+          .then(data => this.setState({ blocks: data }));
+      });
 
-    fetch(`${process.env.REACT_APP_API_ENDPOINT}/api/tokens/stat365`, { mode: 'cors' })
+    fetch(`${process.env.REACT_APP_API_ENDPOINT}/api/v0.1/tokens/usage30`, { mode: 'cors' })
       .then(response => response.json())
-      .then(data => this.setState({ tokens365: data }));
+      .then(data => {
+        this.setState({ tokens30: data });
 
-    fetch(`${process.env.REACT_APP_API_ENDPOINT}/api/tokens/stat`, { mode: 'cors' })
-      .then(response => response.json())
-      .then(data => this.setState({ tokens: data }));
+        fetch(`${process.env.REACT_APP_API_ENDPOINT}/api/v0.1/tokens/usage365`, { mode: 'cors' })
+          .then(response => response.json())
+          .then(data => this.setState({ tokens365: data }));
+
+        fetch(`${process.env.REACT_APP_API_ENDPOINT}/api/v0.1/tokens/usage`, { mode: 'cors' })
+          .then(response => response.json())
+          .then(data => this.setState({ tokens: data }));
+      });
   }
 
   componentDidMount() {
@@ -98,6 +107,23 @@ class App extends Component {
     this.setState({
       filter: event.target.value
     });
+  }
+
+  getBlocks() {
+    const { filter, blocks, blocks30 } = this.state;
+    switch (filter) {
+      case 0:
+      case 365:
+        let data = blocks;
+        if (filter) {
+          const now = new Date();
+          const filterTime = (new Date()).setDate(now.getDate() - filter);
+          data = blocks.filter(x => new Date(x.d) >= filterTime)
+        }
+        return data;
+      default:
+        return blocks30;
+    }
   }
 
   getTokens() {
@@ -114,13 +140,6 @@ class App extends Component {
 
   render() {
     const { classes } = this.props;
-
-    let blocks = this.state.blocks;
-    if (this.state.filter) {
-      const now = new Date();
-      const filterTime = (new Date()).setDate(now.getDate() - this.state.filter);
-      blocks = blocks.filter(x => new Date(x.d) >= filterTime)
-    }
 
     return (
       <React.Fragment>
@@ -146,7 +165,7 @@ class App extends Component {
             </Select>
           </Paper>
           <Paper className={classes.paper}>
-            <BlockStatChart data={blocks} />
+            <BlockStatChart data={this.getBlocks()} />
           </Paper>
           <Grid container spacing={24}>
             <Grid item xs={6}>
