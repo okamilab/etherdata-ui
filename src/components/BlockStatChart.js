@@ -12,7 +12,13 @@ import { unstable_Box as Box } from '@material-ui/core/Box';
 import moment from 'moment';
 
 const styles = theme => ({
+  panel: {
+    marginBottom: 25,
+    display: 'flex',
+    flexDirection: 'row'
+  },
   tab: {
+    cursor: 'pointer',
     padding: theme.spacing.unit,
     opacity: 0.7,
     [theme.breakpoints.up(500 + theme.spacing.unit * 3 * 2)]: {
@@ -21,9 +27,6 @@ const styles = theme => ({
     [theme.breakpoints.up(700 + theme.spacing.unit * 3 * 2)]: {
       padding: theme.spacing.unit * 3
     },
-  },
-  box: {
-    marginBottom: 25
   }
 });
 
@@ -51,42 +54,42 @@ class BlockStatChart extends Component {
       tabs: [
         {
           id: 0,
-          title: "Blocks",
-          dataKey: "c",
+          title: 'Blocks',
+          dataKey: 'c',
           selected: true,
-          color: "#DB4437",
+          color: '#DB4437',
           format: formatYAxisDefault
         },
         {
           id: 1,
-          title: "Difficulty",
-          dataKey: "a_d",
+          title: 'Difficulty',
+          dataKey: 'a_d',
           selected: false,
-          color: "#F6BF26",
+          color: '#F6BF26',
           format: (t) => t + 'G'
         },
         {
           id: 2,
-          title: "Transactions",
-          dataKey: "tx_c",
+          title: 'Transactions',
+          dataKey: 'tx_c',
           selected: false,
-          color: "#0F9D58",
+          color: '#0F9D58',
           format: (t) => (t / 1000) + 'K'
         },
         {
           id: 3,
-          title: "Gas",
-          dataKey: "g_u",
+          title: 'Gas',
+          dataKey: 'g_u',
           selected: false,
-          color: "#1A73E8",
+          color: '#1A73E8',
           format: (t) => (t / 1000000000) + 'B'
         },
         {
           id: 4,
-          title: "Size",
-          dataKey: "s",
+          title: 'Size',
+          dataKey: 's',
           selected: false,
-          color: "#9E9E9E",
+          color: '#9E9E9E',
           format: (t) => (t / Math.pow(1024, 2)).toFixed(1) + 'M'
         }
       ]
@@ -118,7 +121,7 @@ class BlockStatChart extends Component {
 
     return (
       <React.Fragment>
-        <Box display="flex" flexDirection="row" className={classes.box}>
+        <div className={classes.panel}>
           {
             this.state.tabs.map((t) => {
               const selectedStyle = t.selected ? { background: t.color } : null;
@@ -133,12 +136,12 @@ class BlockStatChart extends Component {
               );
             })
           }
-        </Box>
+        </div>
         {/* 99% per https://github.com/recharts/recharts/issues/172 */}
-        <ResponsiveContainer width="99%" height={320}>
+        <ResponsiveContainer width='99%' height={320}>
           <LineChart data={data} margin={{ bottom: 20 }}>
             <XAxis
-              dataKey="d"
+              dataKey='d'
               tickFormatter={formatXAxis}
               height={20}
               style={{ fontSize: 10 }} />
@@ -152,7 +155,7 @@ class BlockStatChart extends Component {
                   <YAxis
                     key={t.id}
                     yAxisId={t.id}
-                    orientation="left"
+                    orientation='left'
                     stroke={t.color}
                     tickFormatter={t.format}
                     width={40}
@@ -160,7 +163,7 @@ class BlockStatChart extends Component {
                 );
               })
             }
-            <CartesianGrid vertical={false} strokeDasharray="3 3" />
+            <CartesianGrid vertical={false} strokeDasharray='3 3' />
             <Tooltip />
             {
               this.state.tabs.map((t) => {
@@ -171,7 +174,7 @@ class BlockStatChart extends Component {
                 return (
                   <Line
                     key={t.id}
-                    type="monotone"
+                    type='monotone'
                     dataKey={t.dataKey}
                     dot={{ r: 0 }}
                     stroke={t.color}
