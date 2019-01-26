@@ -19,11 +19,8 @@ const styles = theme => ({
   },
   tab: {
     cursor: 'pointer',
-    padding: theme.spacing.unit,
+    padding: theme.spacing.unit * 2,
     opacity: 0.7,
-    [theme.breakpoints.up(500 + theme.spacing.unit * 3 * 2)]: {
-      padding: theme.spacing.unit * 2
-    },
     [theme.breakpoints.up(700 + theme.spacing.unit * 3 * 2)]: {
       padding: theme.spacing.unit * 3
     },
