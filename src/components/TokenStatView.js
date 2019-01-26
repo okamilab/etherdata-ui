@@ -7,6 +7,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TablePagination from '@material-ui/core/TablePagination';
+import Link from '@material-ui/core/Link';
 
 const styles = theme => ({
   row: {
@@ -53,9 +54,12 @@ class TokenStatView extends Component {
                 .map((t, i) => (
                   <TableRow key={i} className={classes.row}>
                     <TableCell component="th" scope="row" className={classes.cell}>
-                      <a href={'https://etherscan.io/address/' + t.a} target='_block'>
+                      <Link href={'https://etherscan.io/address/' + t.a}
+                        color="inherit"
+                        target="_blank"
+                        rel="noopener">
                         {t.n || t.a}
-                      </a>
+                      </Link>
                     </TableCell>
                     <TableCell className={classes.cell}>{t.tf_c}</TableCell>
                   </TableRow>

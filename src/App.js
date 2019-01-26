@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import Grid from '@material-ui/core/Grid';
+import Link from '@material-ui/core/Link';
 
 import BlockStatChart from './components/BlockStatChart';
 import TokenStatView from './components/TokenStatView';
@@ -49,6 +50,10 @@ const styles = theme => ({
   },
   filter: {
     paddingRight: 15
+  },
+  footer: {
+    textAlign: 'center',
+    paddingBottom: theme.spacing.unit
   }
 });
 
@@ -154,6 +159,9 @@ class App extends Component {
             </Grid>
           </Grid>
         </main>
+        <div className={classes.footer}>
+          <span>©</span> {(new Date()).getFullYear()} Etherdata | <Link href={process.env.REACT_APP_GITHUB}>GitHub</Link>
+        </div>
       </React.Fragment>
     );
   }
