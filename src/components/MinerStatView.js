@@ -18,7 +18,7 @@ const styles = theme => ({
   }
 });
 
-class TokenStatView extends Component {
+class MinerStatView extends Component {
   constructor(props) {
     super(props);
 
@@ -43,8 +43,8 @@ class TokenStatView extends Component {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell className={classes.cell}>Token</TableCell>
-              <TableCell className={classes.cell}>Transfers</TableCell>
+              <TableCell className={classes.cell}>Miner</TableCell>
+              <TableCell className={classes.cell}>Blocks</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -58,10 +58,10 @@ class TokenStatView extends Component {
                         color="inherit"
                         target="_blank"
                         rel="noopener">
-                        {t.n || t.a}
+                        {t.a}
                       </Link>
                     </TableCell>
-                    <TableCell className={classes.cell}>{t.tf_c}</TableCell>
+                    <TableCell className={classes.cell}>{t.b}</TableCell>
                   </TableRow>
                 ))
             }
@@ -86,9 +86,9 @@ class TokenStatView extends Component {
   }
 }
 
-TokenStatView.propTypes = {
+MinerStatView.propTypes = {
   classes: PropTypes.object.isRequired,
   data: PropTypes.array
 };
 
-export default withStyles(styles)(TokenStatView);
+export default withStyles(styles)(MinerStatView);

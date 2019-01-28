@@ -13,7 +13,8 @@ import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link';
 
 import BlockStatChart from './components/BlockStatChart';
-import TokenStatView from './components/TokenStatView';
+import TokenUsageView from './components/TokenUsageView';
+import MinerStatView from './components/MinerStatView';
 
 dotenv.config();
 
@@ -68,6 +69,9 @@ class App extends Component {
       tokens30: [],
       tokens365: [],
       tokens: [],
+      miners30: [],
+      miners365: [],
+      miners: [],
       filter: 30
     };
 
@@ -97,6 +101,20 @@ class App extends Component {
         fetch(`${process.env.REACT_APP_API_ENDPOINT}/api/v0.1/tokens/usage`, { mode: 'cors' })
           .then(response => response.json())
           .then(data => this.setState({ tokens: data }));
+      });
+
+    fetch(`${process.env.REACT_APP_API_ENDPOINT}/api/v0.1/miners/stat30`, { mode: 'cors' })
+      .then(response => response.json())
+      .then(data => {
+        this.setState({ miners30: data });
+
+        fetch(`${process.env.REACT_APP_API_ENDPOINT}/api/v0.1/miners/stat365`, { mode: 'cors' })
+          .then(response => response.json())
+          .then(data => this.setState({ miners365: data }));
+
+        fetch(`${process.env.REACT_APP_API_ENDPOINT}/api/v0.1/miners/stat`, { mode: 'cors' })
+          .then(response => response.json())
+          .then(data => this.setState({ miners: data }));
       });
   }
 
@@ -139,6 +157,18 @@ class App extends Component {
     }
   }
 
+  getMiners() {
+    const { filter, miners, miners30, miners365 } = this.state;
+    switch (filter) {
+      case 0:
+        return miners;
+      case 365:
+        return miners365;
+      default:
+        return miners30;
+    }
+  }
+
   render() {
     const { classes } = this.props;
 
@@ -174,7 +204,15 @@ class App extends Component {
                 <Typography variant="h6" color="inherit" noWrap>
                   Most used tokens
                 </Typography>
-                <TokenStatView data={this.getTokens()} />
+                <TokenUsageView data={this.getTokens()} />
+              </Paper>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <Paper className={classes.paper}>
+                <Typography variant="h6" color="inherit" noWrap>
+                  Top miners
+                </Typography>
+                <MinerStatView data={this.getMiners()} />
               </Paper>
             </Grid>
           </Grid>
