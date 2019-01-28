@@ -15,6 +15,7 @@ import Link from '@material-ui/core/Link';
 import BlockStatChart from './components/BlockStatChart';
 import TokenUsageView from './components/TokenUsageView';
 import MinerStatView from './components/MinerStatView';
+import BlockNonceStatChart from './components/BlockNonceStatChart';
 
 dotenv.config();
 
@@ -72,6 +73,7 @@ class App extends Component {
       miners30: [],
       miners365: [],
       miners: [],
+      nonces: [],
       filter: 30
     };
 
@@ -79,43 +81,47 @@ class App extends Component {
   }
 
   init() {
-    fetch(`${process.env.REACT_APP_API_ENDPOINT}/api/v0.1/blocks/stat30`, { mode: 'cors' })
+    // fetch(`${process.env.REACT_APP_API_ENDPOINT}/api/v0.1/blocks/stat30`, { mode: 'cors' })
+    //   .then(response => response.json())
+    //   .then(data => {
+    //     this.setState({ blocks30: data });
+
+    //     fetch(`${process.env.REACT_APP_API_ENDPOINT}/api/v0.1/blocks/stat`, { mode: 'cors' })
+    //       .then(response => response.json())
+    //       .then(data => this.setState({ blocks: data }));
+    //   });
+
+    // fetch(`${process.env.REACT_APP_API_ENDPOINT}/api/v0.1/tokens/usage30`, { mode: 'cors' })
+    //   .then(response => response.json())
+    //   .then(data => {
+    //     this.setState({ tokens30: data });
+
+    //     fetch(`${process.env.REACT_APP_API_ENDPOINT}/api/v0.1/tokens/usage365`, { mode: 'cors' })
+    //       .then(response => response.json())
+    //       .then(data => this.setState({ tokens365: data }));
+
+    //     fetch(`${process.env.REACT_APP_API_ENDPOINT}/api/v0.1/tokens/usage`, { mode: 'cors' })
+    //       .then(response => response.json())
+    //       .then(data => this.setState({ tokens: data }));
+    //   });
+
+    // fetch(`${process.env.REACT_APP_API_ENDPOINT}/api/v0.1/miners/stat30`, { mode: 'cors' })
+    //   .then(response => response.json())
+    //   .then(data => {
+    //     this.setState({ miners30: data });
+
+    //     fetch(`${process.env.REACT_APP_API_ENDPOINT}/api/v0.1/miners/stat365`, { mode: 'cors' })
+    //       .then(response => response.json())
+    //       .then(data => this.setState({ miners365: data }));
+
+    //     fetch(`${process.env.REACT_APP_API_ENDPOINT}/api/v0.1/miners/stat`, { mode: 'cors' })
+    //       .then(response => response.json())
+    //       .then(data => this.setState({ miners: data }));
+    //   });
+
+    fetch(`${process.env.REACT_APP_API_ENDPOINT}/api/v0.1/nonces/stat`, { mode: 'cors' })
       .then(response => response.json())
-      .then(data => {
-        this.setState({ blocks30: data });
-
-        fetch(`${process.env.REACT_APP_API_ENDPOINT}/api/v0.1/blocks/stat`, { mode: 'cors' })
-          .then(response => response.json())
-          .then(data => this.setState({ blocks: data }));
-      });
-
-    fetch(`${process.env.REACT_APP_API_ENDPOINT}/api/v0.1/tokens/usage30`, { mode: 'cors' })
-      .then(response => response.json())
-      .then(data => {
-        this.setState({ tokens30: data });
-
-        fetch(`${process.env.REACT_APP_API_ENDPOINT}/api/v0.1/tokens/usage365`, { mode: 'cors' })
-          .then(response => response.json())
-          .then(data => this.setState({ tokens365: data }));
-
-        fetch(`${process.env.REACT_APP_API_ENDPOINT}/api/v0.1/tokens/usage`, { mode: 'cors' })
-          .then(response => response.json())
-          .then(data => this.setState({ tokens: data }));
-      });
-
-    fetch(`${process.env.REACT_APP_API_ENDPOINT}/api/v0.1/miners/stat30`, { mode: 'cors' })
-      .then(response => response.json())
-      .then(data => {
-        this.setState({ miners30: data });
-
-        fetch(`${process.env.REACT_APP_API_ENDPOINT}/api/v0.1/miners/stat365`, { mode: 'cors' })
-          .then(response => response.json())
-          .then(data => this.setState({ miners365: data }));
-
-        fetch(`${process.env.REACT_APP_API_ENDPOINT}/api/v0.1/miners/stat`, { mode: 'cors' })
-          .then(response => response.json())
-          .then(data => this.setState({ miners: data }));
-      });
+      .then(data => { this.setState({ nonces: data }); })
   }
 
   componentDidMount() {
@@ -197,6 +203,9 @@ class App extends Component {
           </Paper>
           <Paper className={classes.paper}>
             <BlockStatChart data={this.getBlocks()} />
+          </Paper>
+          <Paper className={classes.paper}>
+            <BlockNonceStatChart data={this.state.nonces} />
           </Paper>
           <Grid container spacing={24}>
             <Grid item xs={12} sm={6}>
