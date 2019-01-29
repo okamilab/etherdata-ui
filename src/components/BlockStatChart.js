@@ -8,6 +8,7 @@ import XAxis from 'recharts/lib/cartesian/XAxis';
 import YAxis from 'recharts/lib/cartesian/YAxis';
 import CartesianGrid from 'recharts/lib/cartesian/CartesianGrid';
 import Tooltip from 'recharts/lib/component/Tooltip';
+import Brush from 'recharts/lib/cartesian/Brush';
 import moment from 'moment';
 
 const styles = theme => ({
@@ -175,6 +176,7 @@ class BlockStatChart extends Component {
                 );
               })
             }
+            <Brush />
           </LineChart>
         </ResponsiveContainer>
       </React.Fragment>

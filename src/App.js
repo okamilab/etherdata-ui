@@ -15,6 +15,7 @@ import Link from '@material-ui/core/Link';
 import BlockStatChart from './components/BlockStatChart';
 import TokenUsageView from './components/TokenUsageView';
 import MinerStatView from './components/MinerStatView';
+import ContractObsolescenceChart from './components/ContractObsolescenceChart';
 
 dotenv.config();
 
@@ -56,6 +57,10 @@ const styles = theme => ({
     textAlign: 'center',
     paddingTop: theme.spacing.unit * 3,
     paddingBottom: theme.spacing.unit * 2
+  },
+  subtitle: {
+    color: '#0000008a',
+    marginBottom: theme.spacing.unit * 2,
   }
 });
 
@@ -72,6 +77,7 @@ class App extends Component {
       miners30: [],
       miners365: [],
       miners: [],
+      contractObs: [],
       filter: 30
     };
 
@@ -116,6 +122,10 @@ class App extends Component {
           .then(response => response.json())
           .then(data => this.setState({ miners: data }));
       });
+
+    fetch(`${process.env.REACT_APP_API_ENDPOINT}/api/v0.1/contracts/obsolescence`, { mode: 'cors' })
+      .then(response => response.json())
+      .then(data => { this.setState({ contractObs: data }) });
   }
 
   componentDidMount() {
@@ -172,6 +182,12 @@ class App extends Component {
   render() {
     const { classes } = this.props;
 
+    let contractObs = [];
+    if (this.state.contractObs.length) {
+      contractObs = this.state.contractObs
+        .map((x, i) => { return { w: i + 1, c: x } })
+    }
+
     return (
       <React.Fragment>
         <CssBaseline />
@@ -197,6 +213,15 @@ class App extends Component {
           </Paper>
           <Paper className={classes.paper}>
             <BlockStatChart data={this.getBlocks()} />
+          </Paper>
+          <Paper className={classes.paper}>
+            <Typography variant="h6" color="inherit" noWrap>
+              Contract obsolescence
+            </Typography>
+            <Typography variant="subtitle2" className={classes.subtitle}>
+              The chart shows how long smart contracts are used. Contracts with at least one transaction are in count.
+            </Typography>
+            <ContractObsolescenceChart data={contractObs} />
           </Paper>
           <Grid container spacing={24}>
             <Grid item xs={12} sm={6}>
