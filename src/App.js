@@ -16,6 +16,7 @@ import BlockStatChart from './components/BlockStatChart';
 import TokenUsageView from './components/TokenUsageView';
 import MinerStatView from './components/MinerStatView';
 import ContractObsolescenceChart from './components/ContractObsolescenceChart';
+import DeploymentStatChart from './components/DeploymentStatChart';
 
 dotenv.config();
 
@@ -60,6 +61,8 @@ const styles = theme => ({
   },
   subtitle: {
     color: '#0000008a',
+  },
+  mb2: {
     marginBottom: theme.spacing.unit * 2,
   }
 });
@@ -78,6 +81,7 @@ class App extends Component {
       miners365: [],
       miners: [],
       contractObs: [],
+      deployments: [],
       filter: 30
     };
 
@@ -126,6 +130,10 @@ class App extends Component {
     fetch(`${process.env.REACT_APP_API_ENDPOINT}/api/v0.1/contracts/obsolescence`, { mode: 'cors' })
       .then(response => response.json())
       .then(data => { this.setState({ contractObs: data }) });
+
+    fetch(`${process.env.REACT_APP_API_ENDPOINT}/api/v0.1/contracts/deployment`, { mode: 'cors' })
+      .then(response => response.json())
+      .then(data => { this.setState({ deployments: data }) });
   }
 
   componentDidMount() {
@@ -218,10 +226,17 @@ class App extends Component {
             <Typography variant="h6" color="inherit" noWrap>
               Contract obsolescence
             </Typography>
-            <Typography variant="subtitle2" className={classes.subtitle}>
+            <Typography variant="subtitle2"
+              className={[classes.subtitle, classes.mb2]}>
               The chart shows how long smart contracts are used. Contracts with at least one transaction are in count.
             </Typography>
             <ContractObsolescenceChart data={contractObs} />
+          </Paper>
+          <Paper className={classes.paper}>
+            <Typography variant="h6" color="inherit" noWrap className={classes.mb2}>
+              Contract deployments
+            </Typography>
+            <DeploymentStatChart data={this.state.deployments} />
           </Paper>
           <Grid container spacing={24}>
             <Grid item xs={12} sm={6}>
