@@ -11,6 +11,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link';
+import stats from 'stats-analysis';
 
 import BlockStatChart from './components/BlockStatChart';
 import TokenUsageView from './components/TokenUsageView';
@@ -196,6 +197,12 @@ class App extends Component {
         .map((x, i) => { return { w: i + 1, c: x } })
     }
 
+    const outliers = stats.indexOfOutliers(this.state.deployments.map(d => d.c), stats.outlierMethod.MAD, 2);
+    const deployments = this.state.deployments.map((d, i) => {
+      const l = outliers.includes(i) ? '#f00' : '#222';
+      return { ...d, l };
+    });
+
     return (
       <React.Fragment>
         <CssBaseline />
@@ -233,10 +240,14 @@ class App extends Component {
             <ContractObsolescenceChart data={contractObs} />
           </Paper>
           <Paper className={classes.paper}>
-            <Typography variant="h6" color="inherit" noWrap className={classes.mb2}>
+            <Typography variant="h6" color="inherit" noWrap>
               Contract deployments
             </Typography>
-            <DeploymentStatChart data={this.state.deployments} />
+            <Typography variant="subtitle2"
+              className={[classes.subtitle, classes.mb2]}>
+              The chart shows amount of deployed contracts weekly. It displays <span style={{ color: '#f00' }}>anomalies</span> using Iglewicz and Hoaglin's method.
+            </Typography>
+            <DeploymentStatChart data={deployments} />
           </Paper>
           <Grid container spacing={24}>
             <Grid item xs={12} sm={6}>

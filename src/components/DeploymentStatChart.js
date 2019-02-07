@@ -18,6 +18,16 @@ function formatYAxis(tick) {
   return (tick / 1000) + 'K';
 }
 
+class CustomizedDot extends React.Component {
+  render() {
+    const { cx, cy, payload } = this.props;
+
+    return (
+      <circle cx={cx} cy={cy} r={1} stroke={payload.l} fill={payload.l} />
+    );
+  }
+};
+
 class DeploymentStatChart extends Component {
   render() {
     const { data } = this.props;
@@ -32,7 +42,7 @@ class DeploymentStatChart extends Component {
       <React.Fragment>
         {/* 99% per https://github.com/recharts/recharts/issues/172 */}
         <ResponsiveContainer width='99%' height={320}>
-          <LineChart data={data} margin={{ bottom: 20 }}>
+          <LineChart data={data} margin={{ bottom: 20 }} >
             <XAxis
               dataKey='d'
               tickFormatter={formatXAxis}
@@ -49,8 +59,9 @@ class DeploymentStatChart extends Component {
             <Line
               type='monotone'
               dataKey='c'
-              dot={{ r: 0 }}
-              stroke="#9E9E9E" />
+              stroke="#ccc"
+              isAnimationActive={false}
+              dot={<CustomizedDot />} />
             <Brush />
           </LineChart>
         </ResponsiveContainer>
