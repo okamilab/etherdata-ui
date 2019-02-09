@@ -7,7 +7,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import './index.css';
-import { createClient } from './api/client';
+import { createClient } from './services/api/client';
 import { configureStore } from './redux';
 import App from './App';
 import * as serviceWorker from './serviceWorker';

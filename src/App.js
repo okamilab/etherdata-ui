@@ -6,7 +6,8 @@ import Helmet from 'react-helmet-async';
 
 import Layout from './components/Layout';
 import Home from './pages/Home';
-import Contracts from './contracts/pages/Contracts'
+import Contracts from './services/contracts/pages/Contracts'
+import Tokens from './pages/Tokens'
 
 const styles = theme => ({
   layout: {
@@ -200,6 +201,7 @@ class App extends Component {
           <Switch>
             <Route exact path='/' component={Home} />
             <Route exact path='/contracts' component={Contracts} />
+            <Route exact path='/tokens' component={Tokens} />
           </Switch>
         </Layout>
       </React.Fragment>

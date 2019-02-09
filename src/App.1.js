@@ -13,7 +13,7 @@ import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link';
 import stats from 'stats-analysis';
 
-import BlockStatChart from './components/BlockStatChart';
+import BlockStatChart from './services/blocks/components/BlockStatChart';
 import TokenUsageView from './components/TokenUsageView';
 import MinerStatView from './components/MinerStatView';
 import ContractObsolescenceChart from './components/ContractObsolescenceChart';

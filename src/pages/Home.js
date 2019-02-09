@@ -5,9 +5,12 @@ import { connect } from 'react-redux';
 import { withJob } from 'react-jobs';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import { Link as RouteLink } from 'react-router-dom';
 
 import Filter from './../components/Filter';
-import BlockStatChart from './../components/BlockStatChart';
+import BlockStatChart from '../services/blocks/components/BlockStatChart';
 import { fetchBlocksStat } from './../services/blocks/actions';
 
 const styles = theme => ({
@@ -21,32 +24,40 @@ const styles = theme => ({
       padding: theme.spacing.unit * 3,
     },
   },
+  link: {
+    color: 'inherit',
+    textDecoration: 'none',
+    padding: '40px 0'
+  }
 });
 
 function Home({ classes, blocks }) {
-  // const getBlocks = function () {
-  //   const { filter, blocks, blocks30 } = this.state;
-  //   switch (filter) {
-  //     case 0:
-  //     case 365:
-  //       let data = blocks;
-  //       if (filter) {
-  //         const now = new Date();
-  //         const filterTime = (new Date()).setDate(now.getDate() - filter);
-  //         data = blocks.filter(x => new Date(x.d) >= filterTime)
-  //       }
-  //       return data;
-  //     default:
-  //       return blocks30;
-  //   }
-  // }
-
   return (
     <React.Fragment>
       <Filter />
       <Paper className={classes.paper}>
         <BlockStatChart data={blocks} />
       </Paper>
+      <Grid container spacing={24}>
+        <Grid item xs={12} sm={6}>
+          <RouteLink to={'/contracts'} className={classes.link}>
+            <Paper className={classes.paper}>
+              <Typography variant="h6" color="inherit" noWrap>
+                Contracts
+              </Typography>
+            </Paper>
+          </RouteLink>
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <RouteLink to={'/tokens'} className={classes.link}>
+            <Paper className={classes.paper}>
+              <Typography variant="h6" color="inherit" noWrap>
+                Tokens
+              </Typography>
+            </Paper>
+          </RouteLink>
+        </Grid>
+      </Grid>
     </React.Fragment>
   );
 }

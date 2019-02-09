@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux';
 
-import contracts from './../contracts/reduser';
-import blocksStat from './../services/blocks/reduser';
+import contracts from '../services/contracts/reducer';
+import blocksStat from '../services/blocks/reducer';
 import filter from './../services/filter/reducer';
+import tokensUsage from './../services/tokens/reducer';
 
-export default combineReducers({ filter, contracts, blocksStat });
+export default combineReducers({ filter, contracts, blocksStat, tokensUsage });
