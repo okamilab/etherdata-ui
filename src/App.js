@@ -18,6 +18,7 @@ import TokenUsageView from './components/TokenUsageView';
 import MinerStatView from './components/MinerStatView';
 import ContractObsolescenceChart from './components/ContractObsolescenceChart';
 import DeploymentStatChart from './components/DeploymentStatChart';
+import GrowthRateView from './components/GrowthRateView';
 
 dotenv.config();
 
@@ -62,9 +63,17 @@ const styles = theme => ({
   },
   subtitle: {
     color: '#0000008a',
+    fontSize: 14
   },
   mb2: {
     marginBottom: theme.spacing.unit * 2,
+  },
+  anomaly: {
+    color: '#f00'
+  },
+  block: {
+    marginBottom: theme.spacing.unit * 3,
+    textAlign: 'center'
   }
 });
 
@@ -202,6 +211,9 @@ class App extends Component {
       const l = outliers.includes(i) ? '#f00' : '#222';
       return { ...d, l };
     });
+    const deploymentsWithoutOutliners = this.state.deployments
+      .filter((_, i) => !outliers.includes(i))
+      .map(d => d.c);
 
     return (
       <React.Fragment>
@@ -239,16 +251,43 @@ class App extends Component {
             </Typography>
             <ContractObsolescenceChart data={contractObs} />
           </Paper>
-          <Paper className={classes.paper}>
-            <Typography variant="h6" color="inherit" noWrap>
-              Contract deployments
-            </Typography>
-            <Typography variant="subtitle2"
-              className={[classes.subtitle, classes.mb2]}>
-              The chart shows amount of deployed contracts weekly. It displays <span style={{ color: '#f00' }}>anomalies</span> using Iglewicz and Hoaglin's method.
-            </Typography>
-            <DeploymentStatChart data={deployments} />
-          </Paper>
+          <Grid container spacing={24}>
+            <Grid item xs={12} sm={9}>
+              <Paper className={classes.paper}>
+                <Typography variant="h6" color="inherit" noWrap>
+                  Contract deployments
+                </Typography>
+                <Typography variant="subtitle2"
+                  className={[classes.subtitle, classes.mb2]}>
+                  The chart shows amount of deployed contracts weekly. It displays <span className={classes.anomaly}>anomalies</span> using Iglewicz and Hoaglin's method.
+                </Typography>
+                <DeploymentStatChart data={deployments} />
+              </Paper>
+            </Grid>
+            <Grid item xs={12} sm={3}>
+              <Paper className={classes.paper}>
+                <Typography variant="h6" color="inherit" noWrap>
+                  Growth Rate
+                </Typography>
+                <div className={classes.block}>
+                  <h3 className={classes.anomaly}>
+                    <GrowthRateView data={this.state.deployments.map(d => d.c)} className={classes.anomaly} />
+                  </h3>
+                  <div className={classes.subtitle}>
+                    Average growth rate including anomalies
+                  </div>
+                </div>
+                <div className={classes.block}>
+                  <h3>
+                    <GrowthRateView data={deploymentsWithoutOutliners} />
+                  </h3>
+                  <div className={classes.subtitle}>
+                    Average growth rate
+                  </div>
+                </div>
+              </Paper>
+            </Grid>
+          </Grid>
           <Grid container spacing={24}>
             <Grid item xs={12} sm={6}>
               <Paper className={classes.paper}>
