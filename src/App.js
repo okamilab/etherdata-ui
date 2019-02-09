@@ -2,30 +2,15 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import dotenv from 'dotenv';
 import withStyles from '@material-ui/core/styles/withStyles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import AppBar from '@material-ui/core/AppBar';
-import Paper from '@material-ui/core/Paper';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
-import Grid from '@material-ui/core/Grid';
-import Link from '@material-ui/core/Link';
-import stats from 'stats-analysis';
+import { Switch, Route } from 'react-router';
+import Helmet from 'react-helmet-async';
 
-import BlockStatChart from './components/BlockStatChart';
-import TokenUsageView from './components/TokenUsageView';
-import MinerStatView from './components/MinerStatView';
-import ContractObsolescenceChart from './components/ContractObsolescenceChart';
-import DeploymentStatChart from './components/DeploymentStatChart';
-import GrowthRateView from './components/GrowthRateView';
+import Layout from './components/Layout';
+import Home from './pages/Home';
 
 dotenv.config();
 
 const styles = theme => ({
-  appBar: {
-    position: 'relative',
-  },
   layout: {
     width: 'auto',
     marginLeft: theme.spacing.unit * 2,
@@ -55,11 +40,6 @@ const styles = theme => ({
   },
   filter: {
     paddingRight: 15
-  },
-  footer: {
-    textAlign: 'center',
-    paddingTop: theme.spacing.unit * 3,
-    paddingBottom: theme.spacing.unit * 2
   },
   subtitle: {
     color: '#0000008a',
@@ -147,7 +127,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.init();
+    // this.init();
   }
 
   filter(event) {
@@ -198,123 +178,31 @@ class App extends Component {
   }
 
   render() {
-    const { classes } = this.props;
+    // const { classes } = this.props;
 
-    let contractObs = [];
-    if (this.state.contractObs.length) {
-      contractObs = this.state.contractObs
-        .map((x, i) => { return { w: i + 1, c: x } })
-    }
+    // let contractObs = [];
+    // if (this.state.contractObs.length) {
+    //   contractObs = this.state.contractObs
+    //     .map((x, i) => { return { w: i + 1, c: x } })
+    // }
 
-    const outliers = stats.indexOfOutliers(this.state.deployments.map(d => d.c), stats.outlierMethod.MAD, 2);
-    const deployments = this.state.deployments.map((d, i) => {
-      const l = outliers.includes(i) ? '#f00' : '#222';
-      return { ...d, l };
-    });
-    const deploymentsWithoutOutliners = this.state.deployments
-      .filter((_, i) => !outliers.includes(i))
-      .map(d => d.c);
+    // const outliers = stats.indexOfOutliers(this.state.deployments.map(d => d.c), stats.outlierMethod.MAD, 2);
+    // const deployments = this.state.deployments.map((d, i) => {
+    //   const l = outliers.includes(i) ? '#f00' : '#222';
+    //   return { ...d, l };
+    // });
+    // const deploymentsWithoutOutliners = this.state.deployments
+    //   .filter((_, i) => !outliers.includes(i))
+    //   .map(d => d.c);
 
     return (
       <React.Fragment>
-        <CssBaseline />
-        <AppBar position="absolute" color="default" className={classes.appBar}>
-          <Toolbar>
-            <Typography variant="h6" color="inherit" noWrap>
-              Etherdata
-            </Typography>
-          </Toolbar>
-        </AppBar>
-        <main className={classes.layout}>
-          <Paper className={classes.paper + ' ' + classes.paperTop}>
-            <span className={classes.filter}>Filter</span>
-            <Select
-              value={this.state.filter}
-              onChange={this.filter}
-              name="filter"
-            >
-              <MenuItem value={30}>Last 30 days</MenuItem>
-              <MenuItem value={365}>Last year</MenuItem>
-              <MenuItem value={0}>All time</MenuItem>
-            </Select>
-          </Paper>
-          <Paper className={classes.paper}>
-            <BlockStatChart data={this.getBlocks()} />
-          </Paper>
-          <Paper className={classes.paper}>
-            <Typography variant="h6" color="inherit" noWrap>
-              Contract obsolescence
-            </Typography>
-            <Typography variant="subtitle2"
-              className={[classes.subtitle, classes.mb2]}>
-              The chart shows how long smart contracts are used. Contracts with at least one transaction are in count.
-            </Typography>
-            <ContractObsolescenceChart data={contractObs} />
-          </Paper>
-          <Grid container spacing={24}>
-            <Grid item xs={12} sm={9}>
-              <Paper className={classes.paper}>
-                <Typography variant="h6" color="inherit" noWrap>
-                  Contract deployments
-                </Typography>
-                <Typography variant="subtitle2"
-                  className={[classes.subtitle, classes.mb2]}>
-                  The chart shows amount of deployed contracts weekly. It displays <span className={classes.anomaly}>anomalies</span> using Iglewicz and Hoaglin's method.
-                </Typography>
-                <DeploymentStatChart data={deployments} />
-              </Paper>
-            </Grid>
-            <Grid item xs={12} sm={3}>
-              <Paper className={classes.paper}>
-                <Typography variant="h6" color="inherit" noWrap>
-                  Growth Rate
-                </Typography>
-                <div className={classes.block}>
-                  <h3 className={classes.anomaly}>
-                    <GrowthRateView data={this.state.deployments.map(d => d.c)} className={classes.anomaly} />
-                  </h3>
-                  <div className={classes.subtitle}>
-                    Average growth rate including anomalies
-                  </div>
-                </div>
-                <div className={classes.block}>
-                  <h3>
-                    <GrowthRateView data={deploymentsWithoutOutliners} />
-                  </h3>
-                  <div className={classes.subtitle}>
-                    Average growth rate
-                  </div>
-                </div>
-              </Paper>
-            </Grid>
-          </Grid>
-          <Grid container spacing={24}>
-            <Grid item xs={12} sm={6}>
-              <Paper className={classes.paper}>
-                <Typography variant="h6" color="inherit" noWrap>
-                  Most used tokens
-                </Typography>
-                <TokenUsageView data={this.getTokens()} />
-              </Paper>
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <Paper className={classes.paper}>
-                <Typography variant="h6" color="inherit" noWrap>
-                  Top miners
-                </Typography>
-                <MinerStatView data={this.getMiners()} />
-              </Paper>
-            </Grid>
-          </Grid>
-        </main>
-        <div className={classes.footer}>
-          <div>
-            Etherdata is a Analytics Platform for Ethereum
-          </div>
-          <div>
-            <span>©</span> {(new Date()).getFullYear()} Etherdata | <Link href={process.env.REACT_APP_GITHUB}>GitHub</Link>
-          </div>
-        </div>
+        <Helmet titleTemplate='Etherdata - %s' />
+        <Layout>
+          <Switch>
+            <Route exact path='/' component={Home} />
+          </Switch>
+        </Layout>
       </React.Fragment>
     );
   }
