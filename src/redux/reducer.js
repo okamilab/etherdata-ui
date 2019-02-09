@@ -1,3 +1,6 @@
 import { combineReducers } from 'redux';
 
-export default combineReducers({});
+import contracts from './../contracts/reduser';
+import filter from './../services/filter/reducer';
+
+export default combineReducers({ contracts, filter });

@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import dotenv from 'dotenv';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { Switch, Route } from 'react-router';
 import Helmet from 'react-helmet-async';
 
 import Layout from './components/Layout';
 import Home from './pages/Home';
-
-dotenv.config();
+import Contracts from './contracts/pages/Contracts'
 
 const styles = theme => ({
   layout: {
@@ -201,6 +199,7 @@ class App extends Component {
         <Layout>
           <Switch>
             <Route exact path='/' component={Home} />
+            <Route exact path='/contracts' component={Contracts} />
           </Switch>
         </Layout>
       </React.Fragment>

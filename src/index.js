@@ -1,19 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import dotenv from 'dotenv';
 import { AppContainer } from 'react-hot-loader';
 import { HelmetProvider } from 'react-helmet-async';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
-import axios from 'axios';
 
 import './index.css';
+import { createClient } from './api/client';
 import { configureStore } from './redux';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-let client = axios.create({
-  baseURL: process.env.REACT_APP_API_ENDPOINT
-});
+dotenv.config();
+
+let client = createClient();
 const store = configureStore({}, client);
 
 ReactDOM.render(
