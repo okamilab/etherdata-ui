@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { Link as RouteLink } from 'react-router-dom';
 
+import Notifier from './../components/Notifier';
 import BlockStatChart from '../services/blocks/components/BlockStatChart';
 
 const styles = theme => ({
@@ -36,6 +37,7 @@ const styles = theme => ({
 function Home({ classes }) {
   return (
     <React.Fragment>
+      <Notifier />
       {/* <Filter /> */}
       <Paper className={classes.paper + ' ' + classes.paperTop}>
         <BlockStatChart />

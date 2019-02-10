@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Paper from '@material-ui/core/Paper';
 
+import Notifier from './../../../components/Notifier';
 import HomeNav from './../../../components/HomeNav';
 import MinerStatView from './../components/MinerStatView';
 
@@ -23,6 +24,7 @@ function Miners({ classes }) {
   return (
     <React.Fragment>
       <HomeNav />
+      <Notifier />
       <Paper className={classes.paper}>
         <MinerStatView />
       </Paper>

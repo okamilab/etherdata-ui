@@ -7,28 +7,28 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 
 const styles = theme => ({
-	appBar: {
-		position: 'relative',
-	},
+  appBar: {
+    position: 'relative',
+  },
 });
 
 function Header({ classes }) {
-	return (
-		<React.Fragment>
-			<CssBaseline />
-			<AppBar position="absolute" color="default" className={classes.appBar}>
-				<Toolbar>
-					<Typography variant="h6" color="inherit" noWrap>
-						Etherdata
+  return (
+    <React.Fragment>
+      <CssBaseline />
+      <AppBar position="absolute" color="default" className={classes.appBar}>
+        <Toolbar>
+          <Typography variant="h6" color="inherit" noWrap>
+            Etherdata
           </Typography>
-				</Toolbar>
-			</AppBar>
-		</React.Fragment>
-	);
+        </Toolbar>
+      </AppBar>
+    </React.Fragment>
+  );
 }
 
 Header.propTypes = {
-	classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(Header);
