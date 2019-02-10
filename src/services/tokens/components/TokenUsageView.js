@@ -11,29 +11,11 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TablePagination from '@material-ui/core/TablePagination';
 import Link from '@material-ui/core/Link';
-import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
 import { fetchTokensUsage } from './../actions';
 
 const styles = theme => ({
-  paper: {
-    marginTop: theme.spacing.unit * 3,
-    marginBottom: theme.spacing.unit * 3,
-    padding: theme.spacing.unit * 2,
-    [theme.breakpoints.up(600 + theme.spacing.unit * 3 * 2)]: {
-      marginTop: theme.spacing.unit,
-      marginBottom: theme.spacing.unit * 4,
-      padding: theme.spacing.unit * 3,
-    },
-  },
-  paperTop: {
-    [theme.breakpoints.up(600 + theme.spacing.unit * 3 * 2)]: {
-      marginTop: theme.spacing.unit * 4,
-      marginBottom: theme.spacing.unit * 4,
-      padding: theme.spacing.unit * 3,
-    },
-  },
   row: {
     height: 36
   },
@@ -63,7 +45,7 @@ class TokenUsageView extends Component {
     const { page, rowsPerPage } = this.state;
 
     return (
-      <Paper className={classes.paper + ' ' + classes.paperTop}>
+      <React.Fragment>
         <Typography variant="h6" color="inherit" noWrap>
           Most used tokens
         </Typography>
@@ -108,7 +90,7 @@ class TokenUsageView extends Component {
           }}
           onChangePage={this.handleChangePage}
         />
-      </Paper>
+      </React.Fragment>
     );
   }
 }
