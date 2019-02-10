@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Paper from '@material-ui/core/Paper';
 
-import ContractObsolescenceChart from './../components/ContractObsolescenceChart'
+import ObsolescenceChart from './../components/ObsolescenceChart';
+import DeploymentsView from './../components/DeploymentsView';
 
 const styles = theme => ({
   paper: {
@@ -22,8 +23,9 @@ function Contracts({ classes }) {
   return (
     <React.Fragment>
       <Paper className={classes.paper}>
-        <ContractObsolescenceChart />
+        <ObsolescenceChart />
       </Paper>
+      <DeploymentsView />
     </React.Fragment>
   );
 }

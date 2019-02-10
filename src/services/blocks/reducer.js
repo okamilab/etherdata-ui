@@ -20,7 +20,7 @@ export default function reduce(state = initialState, action) {
       return Object.assign({}, state, {
         isFetching: false,
         didInvalidate: false,
-        items: action.blocks,
+        items: action.items,
       });
     }
     default:

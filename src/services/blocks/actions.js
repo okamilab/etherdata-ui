@@ -5,21 +5,11 @@ export const BLOCKS_STAT_RECEIVE = 'BLOCKS_STAT_RECEIVE';
 
 export function fetchBlocksStat() {
   return async (dispatch, _, client) => {
-    dispatch(requestBlocks());
-    const blocks = await api.fetchBlocksStat(client);
-    dispatch(receiveBlocks(blocks));
-  };
-}
-
-function requestBlocks() {
-  return {
-    type: BLOCKS_STAT_REQUEST,
-  };
-}
-
-function receiveBlocks(blocks) {
-  return {
-    type: BLOCKS_STAT_RECEIVE,
-    blocks
+    dispatch({ type: BLOCKS_STAT_REQUEST });
+    const items = await api.fetchBlocksStat(client);
+    dispatch({
+      type: BLOCKS_STAT_RECEIVE,
+      items
+    });
   };
 }

@@ -12,7 +12,7 @@ import YAxis from 'recharts/lib/cartesian/YAxis';
 import Tooltip from 'recharts/lib/component/Tooltip';
 import Typography from '@material-ui/core/Typography';
 
-import { fetchContractsObsolescence } from './../actions';
+import { fetchContractsObsolescence } from '../actions';
 
 const styles = theme => ({
   tooltip: {
@@ -33,31 +33,26 @@ function formatYAxis(tick) {
   return (tick / 1000) + 'K';
 }
 
-class ContractObsolescenceTooltip extends Component {
-  render() {
-    const { classes, active, label } = this.props;
-
-    if (active && label) {
-      const { payload } = this.props;
-      return (
-        <div className={classes.tooltip}>
-          {`${label} week(s): ${payload[0].value}`}
-        </div>
-      );
-    }
-
-    return null;
+function ObsolescenceTooltip({ classes, active, label, payload }) {
+  if (active && label) {
+    return (
+      <div className={classes.tooltip}>
+        {`${label} week(s): ${payload[0].value}`}
+      </div>
+    );
   }
+
+  return null;
 }
 
-ContractObsolescenceTooltip.propTypes = {
+ObsolescenceTooltip.propTypes = {
   classes: PropTypes.object.isRequired,
   type: PropTypes.string,
   payload: PropTypes.array,
   label: PropTypes.number,
 };
 
-class ContractObsolescenceChart extends Component {
+class ObsolescenceChart extends Component {
   render() {
     const { classes, items } = this.props;
 
@@ -88,7 +83,7 @@ class ContractObsolescenceChart extends Component {
               width={40}
               style={{ fontSize: 10 }} />
             <Bar dataKey="c" fill="#4285F4" />
-            <Tooltip content={<ContractObsolescenceTooltip classes={classes} />} />
+            <Tooltip content={<ObsolescenceTooltip classes={classes} />} />
           </BarChart>
         </ResponsiveContainer>
       </React.Fragment>
@@ -96,7 +91,7 @@ class ContractObsolescenceChart extends Component {
   }
 }
 
-ContractObsolescenceChart.propTypes = {
+ObsolescenceChart.propTypes = {
   classes: PropTypes.object.isRequired,
   items: PropTypes.array.isRequired
 };
@@ -115,4 +110,4 @@ export default compose(
     error: function Error() { return <p>Error</p>; },
   }),
   withStyles(styles)
-)(ContractObsolescenceChart);
+)(ObsolescenceChart);

@@ -5,21 +5,11 @@ export const TOKENS_USAGE_RECEIVE = 'TOKENS_USAGE_RECEIVE';
 
 export function fetchTokensUsage() {
   return async (dispatch, _, client) => {
-    dispatch(requestTokensUsage());
-    const blocks = await api.fetchTokensUsage(client);
-    dispatch(receiveTokensUsage(blocks));
-  };
-}
-
-function requestTokensUsage() {
-  return {
-    type: TOKENS_USAGE_REQUEST,
-  };
-}
-
-function receiveTokensUsage(items) {
-  return {
-    type: TOKENS_USAGE_RECEIVE,
-    items
+    dispatch({ type: TOKENS_USAGE_REQUEST });
+    const items = await api.fetchTokensUsage(client);
+    dispatch({
+      type: TOKENS_USAGE_RECEIVE,
+      items
+    });
   };
 }
