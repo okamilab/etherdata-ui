@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Paper from '@material-ui/core/Paper';
 
-import Filter from './../../../components/Filter';
-import TokenUsageView from './../components/TokenUsageView';
+import MinerStatView from './../components/MinerStatView';
 
 const styles = theme => ({
   paper: {
@@ -12,33 +11,25 @@ const styles = theme => ({
     marginBottom: theme.spacing.unit * 3,
     padding: theme.spacing.unit * 2,
     [theme.breakpoints.up(600 + theme.spacing.unit * 3 * 2)]: {
-      marginTop: theme.spacing.unit,
-      marginBottom: theme.spacing.unit * 4,
-      padding: theme.spacing.unit * 3,
-    },
-  },
-  paperTop: {
-    [theme.breakpoints.up(600 + theme.spacing.unit * 3 * 2)]: {
       marginTop: theme.spacing.unit * 4,
       marginBottom: theme.spacing.unit * 4,
       padding: theme.spacing.unit * 3,
     },
-  },
+  }
 });
 
-function Tokens({ classes }) {
+function Miners({ classes }) {
   return (
     <React.Fragment>
-      {/* <Filter /> */}
-      <Paper className={classes.paper + ' ' + classes.paperTop}>
-        <TokenUsageView />
+      <Paper className={classes.paper}>
+        <MinerStatView />
       </Paper>
     </React.Fragment>
   );
 }
 
-Tokens.propTypes = {
+Miners.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Tokens);
+export default withStyles(styles)(Miners);

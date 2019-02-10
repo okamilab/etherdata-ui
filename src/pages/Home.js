@@ -20,6 +20,13 @@ const styles = theme => ({
       padding: theme.spacing.unit * 3,
     },
   },
+  paperTop: {
+    [theme.breakpoints.up(600 + theme.spacing.unit * 3 * 2)]: {
+      marginTop: theme.spacing.unit * 4,
+      marginBottom: theme.spacing.unit * 4,
+      padding: theme.spacing.unit * 3,
+    },
+  },
   link: {
     color: 'inherit',
     textDecoration: 'none',
@@ -31,11 +38,11 @@ function Home({ classes }) {
   return (
     <React.Fragment>
       {/* <Filter /> */}
-      <Paper className={classes.paper}>
+      <Paper className={classes.paper + ' ' + classes.paperTop}>
         <BlockStatChart />
       </Paper>
       <Grid container spacing={24}>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={6} sm={4}>
           <RouteLink to={'/contracts'} className={classes.link}>
             <Paper className={classes.paper}>
               <Typography variant="h6" color="inherit" noWrap>
@@ -44,11 +51,20 @@ function Home({ classes }) {
             </Paper>
           </RouteLink>
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={6} sm={4}>
           <RouteLink to={'/tokens'} className={classes.link}>
             <Paper className={classes.paper}>
               <Typography variant="h6" color="inherit" noWrap>
                 Tokens
+              </Typography>
+            </Paper>
+          </RouteLink>
+        </Grid>
+        <Grid item xs={6} sm={4}>
+          <RouteLink to={'/miners'} className={classes.link}>
+            <Paper className={classes.paper}>
+              <Typography variant="h6" color="inherit" noWrap>
+                Miners
               </Typography>
             </Paper>
           </RouteLink>

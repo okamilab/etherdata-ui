@@ -97,12 +97,12 @@ class TokenUsageView extends Component {
 
 TokenUsageView.propTypes = {
   classes: PropTypes.object.isRequired,
-  items: PropTypes.array
+  items: PropTypes.array.isRequired
 };
 
 export default compose(
   connect(state => {
-    const { isFetching, items } = state.tokensUsage || {
+    const { isFetching, items } = state.tokens || {
       isFetching: true,
       items: []
     };
