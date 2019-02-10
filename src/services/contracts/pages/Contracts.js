@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Paper from '@material-ui/core/Paper';
 
+import HomeNav from './../../../components/HomeNav';
 import ObsolescenceChart from './../components/ObsolescenceChart';
 import DeploymentsView from './../components/DeploymentsView';
 
@@ -22,6 +23,7 @@ const styles = theme => ({
 function Contracts({ classes }) {
   return (
     <React.Fragment>
+      <HomeNav />
       <Paper className={classes.paper}>
         <ObsolescenceChart />
       </Paper>
