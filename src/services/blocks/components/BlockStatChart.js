@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import { withJob } from 'react-jobs';
 import withStyles from '@material-ui/core/styles/withStyles';
 import ResponsiveContainer from 'recharts/lib/component/ResponsiveContainer';
 import LineChart from 'recharts/lib/chart/LineChart';
@@ -10,6 +13,8 @@ import CartesianGrid from 'recharts/lib/cartesian/CartesianGrid';
 import Tooltip from 'recharts/lib/component/Tooltip';
 import Brush from 'recharts/lib/cartesian/Brush';
 import moment from 'moment';
+
+import { fetchBlocksStat } from './../actions';
 
 const styles = theme => ({
   panel: {
@@ -105,9 +110,9 @@ class BlockStatChart extends Component {
   }
 
   render() {
-    const { classes, data } = this.props;
+    const { classes, items } = this.props;
 
-    if (!data || data.length === 0) {
+    if (!items || items.length === 0) {
       return (
         <div>No data</div>
       )
@@ -133,7 +138,7 @@ class BlockStatChart extends Component {
         </div>
         {/* 99% per https://github.com/recharts/recharts/issues/172 */}
         <ResponsiveContainer width='99%' height={320}>
-          <LineChart data={data} margin={{ bottom: 20 }}>
+          <LineChart data={items} margin={{ bottom: 20 }}>
             <XAxis
               dataKey='d'
               tickFormatter={formatXAxis}
@@ -186,7 +191,21 @@ class BlockStatChart extends Component {
 
 BlockStatChart.propTypes = {
   classes: PropTypes.object.isRequired,
-  data: PropTypes.array
+  items: PropTypes.array.isRequired
 };
 
-export default withStyles(styles)(BlockStatChart);
+export default compose(
+  connect(state => {
+    const { isFetching, items } = state.blocksStat || {
+      isFetching: true,
+      items: []
+    };
+    return { isFetching, items };
+  }),
+  withJob({
+    work: ({ dispatch }) => dispatch(fetchBlocksStat()),
+    LoadingComponent: () => <div>Loading...</div>,
+    error: function Error() { return <p>Error</p>; },
+  }),
+  withStyles(styles)
+)(BlockStatChart);

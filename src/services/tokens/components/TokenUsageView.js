@@ -128,6 +128,7 @@ export default compose(
   }),
   withJob({
     work: ({ dispatch }) => dispatch(fetchTokensUsage()),
+    LoadingComponent: () => <div>Loading...</div>,
     error: function Error() { return <p>Error</p>; },
   }),
   withStyles(styles)

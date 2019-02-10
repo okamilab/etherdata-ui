@@ -1,8 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { compose } from 'redux';
-import { connect } from 'react-redux';
-import { withJob } from 'react-jobs';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -11,7 +8,6 @@ import { Link as RouteLink } from 'react-router-dom';
 
 import Filter from './../components/Filter';
 import BlockStatChart from '../services/blocks/components/BlockStatChart';
-import { fetchBlocksStat } from './../services/blocks/actions';
 
 const styles = theme => ({
   paper: {
@@ -31,12 +27,12 @@ const styles = theme => ({
   }
 });
 
-function Home({ classes, blocks }) {
+function Home({ classes }) {
   return (
     <React.Fragment>
       <Filter />
       <Paper className={classes.paper}>
-        <BlockStatChart data={blocks} />
+        <BlockStatChart />
       </Paper>
       <Grid container spacing={24}>
         <Grid item xs={12} sm={6}>
@@ -66,17 +62,4 @@ Home.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default compose(
-  connect(state => {
-    const { isFetching, items: blocks } = state.blocksStat || {
-      isFetching: true,
-      items: []
-    };
-    return { isFetching, blocks };
-  }),
-  withJob({
-    work: ({ dispatch }) => dispatch(fetchBlocksStat()),
-    error: function Error() { return <p>Error</p>; },
-  }),
-  withStyles(styles)
-)(Home);
+export default withStyles(styles)(Home);

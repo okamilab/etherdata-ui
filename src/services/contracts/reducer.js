@@ -4,23 +4,29 @@ import {
 } from './actions';
 
 export const initialState = {
-  isObsFetching: false,
-  didObsInvalidate: true,
-  obsItems: []
+  obsolescence: {
+    isFetching: false,
+    didInvalidate: true,
+    items: []
+  }
 };
 
 export default function reduce(state = initialState, action) {
   switch (action.type) {
     case CONTRACTS_OBSOLESCENCE_REQUEST:
       return Object.assign({}, state, {
-        isObsFetching: true,
-        didObsInvalidate: false
+        obsolescence: {
+          isFetching: true,
+          didInvalidate: false
+        }
       });
     case CONTRACTS_OBSOLESCENCE_RECEIVE: {
       return Object.assign({}, state, {
-        isObsFetching: false,
-        didObsInvalidate: false,
-        obsItems: action.contracts,
+        obsolescence: {
+          isFetching: false,
+          didInvalidate: false,
+          items: action.contracts
+        }
       });
     }
     default:
