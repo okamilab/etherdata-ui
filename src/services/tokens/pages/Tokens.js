@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Paper from '@material-ui/core/Paper';
 
-import Filter from './../components/Filter';
-import TokenUsageView from '../services/tokens/components/TokenUsageView';
+import Filter from './../../../components/Filter';
+import TokenUsageView from './../components/TokenUsageView';
 
 const styles = theme => ({
   paper: {
@@ -22,7 +22,7 @@ const styles = theme => ({
 function Home({ classes }) {
   return (
     <React.Fragment>
-      <Filter />
+      {/* <Filter /> */}
       <Paper className={classes.paper}>
         <TokenUsageView />
       </Paper>

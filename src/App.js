@@ -5,7 +5,7 @@ import Helmet from 'react-helmet-async';
 import Layout from './components/Layout';
 import Home from './pages/Home';
 import Contracts from './services/contracts/pages/Contracts'
-import Tokens from './pages/Tokens'
+import Tokens from './services/tokens/pages/Tokens'
 
 export default function App() {
   return (

@@ -30,7 +30,7 @@ const styles = theme => ({
 function Home({ classes }) {
   return (
     <React.Fragment>
-      <Filter />
+      {/* <Filter /> */}
       <Paper className={classes.paper}>
         <BlockStatChart />
       </Paper>
