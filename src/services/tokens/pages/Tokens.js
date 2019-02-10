@@ -4,7 +4,6 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Paper from '@material-ui/core/Paper';
 
 import HomeNav from './../../../components/HomeNav';
-import Filter from './../../../components/Filter';
 import TokenUsageView from './../components/TokenUsageView';
 
 const styles = theme => ({

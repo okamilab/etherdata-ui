@@ -6,7 +6,6 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { Link as RouteLink } from 'react-router-dom';
 
-import Filter from './../components/Filter';
 import BlockStatChart from '../services/blocks/components/BlockStatChart';
 
 const styles = theme => ({
