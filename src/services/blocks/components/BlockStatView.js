@@ -64,7 +64,6 @@ export default compose(
     const { filter } = state.blocks.stat || { filter: 30 };
     const { isFetching = true, items = [] } = state.blocks.stat[filter] || {
       isFetching: false,
-      didInvalidate: true,
       items: []
     };
     return { filter, items, isFetching };
