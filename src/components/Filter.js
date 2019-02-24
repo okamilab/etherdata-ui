@@ -27,8 +27,8 @@ const styles = theme => ({
 
 function Filter({ dispatch, classes, filter }) {
   return (
-    <Paper className={classes.paper}>
-      <span className={classes.filter}>Filter</span>
+    // <Paper className={classes.paper}>
+    //   <span className={classes.filter}>Filter</span>
       <Select
         value={filter}
         onChange={(e) => {
@@ -40,7 +40,7 @@ function Filter({ dispatch, classes, filter }) {
         <MenuItem value={365}>Last year</MenuItem>
         <MenuItem value={0}>All time</MenuItem>
       </Select>
-    </Paper>
+    // </Paper>
   );
 }
 
