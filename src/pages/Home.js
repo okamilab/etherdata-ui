@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { Link as RouteLink } from 'react-router-dom';
 
-import BlockStatChart from '../services/blocks/components/BlockStatChart';
+import BlockStatView from '../services/blocks/components/BlockStatView';
 
 const styles = theme => ({
   paper: {
@@ -37,7 +37,7 @@ function Home({ classes }) {
   return (
     <React.Fragment>
       <Paper className={classes.paper + ' ' + classes.paperTop}>
-        <BlockStatChart />
+        <BlockStatView />
       </Paper>
       <Grid container spacing={24}>
         <Grid item xs={6} sm={4}>

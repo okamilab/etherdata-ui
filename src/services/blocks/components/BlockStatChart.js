@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { compose } from 'redux';
-import { connect } from 'react-redux';
-import { withJob } from 'react-jobs';
 import withStyles from '@material-ui/core/styles/withStyles';
 import ResponsiveContainer from 'recharts/lib/component/ResponsiveContainer';
 import LineChart from 'recharts/lib/chart/LineChart';
@@ -12,11 +9,7 @@ import YAxis from 'recharts/lib/cartesian/YAxis';
 import CartesianGrid from 'recharts/lib/cartesian/CartesianGrid';
 import Tooltip from 'recharts/lib/component/Tooltip';
 import Brush from 'recharts/lib/cartesian/Brush';
-import Divider from '@material-ui/core/Divider';
 import moment from 'moment';
-
-import Filter from './../../../components/Filter';
-import { fetchBlocksStat, mutateBlocksStatFilter } from './../actions';
 
 const styles = theme => ({
   panel: {
@@ -112,24 +105,7 @@ class BlockStatChart extends Component {
   }
 
   render() {
-    const { dispatch, classes, filter, items, isFetching } = this.props;
-
-    if (isFetching) {
-      return (
-        <div>Loading...</div>
-      )
-    }
-
-    if (!items || items.length === 0) {
-      return (
-        <div>No data</div>
-      )
-    }
-
-    const options = [
-      { key: "30", value: "Last 30 days" },
-      { key: "0", value: "All time" },
-    ];
+    const { classes, items } = this.props;
 
     return (
       <React.Fragment>
@@ -197,36 +173,14 @@ class BlockStatChart extends Component {
             <Brush />
           </LineChart>
         </ResponsiveContainer>
-        <Divider />
-        <Filter options={options} filter={filter} onChange={(value) => {
-          dispatch(mutateBlocksStatFilter(value));
-        }} />
       </React.Fragment>
     );
   }
 }
 
 BlockStatChart.propTypes = {
-  dispatch: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
-  filter: PropTypes.number.isRequired,
   items: PropTypes.array.isRequired
 };
 
-export default compose(
-  connect(state => {
-    const { filter } = state.blocks.stat || { filter: 30 };
-    const { isFetching = true, items = [] } = state.blocks.stat[filter] || {
-      isFetching: false,
-      didInvalidate: true,
-      items: []
-    };
-    return { filter, items, isFetching };
-  }),
-  withJob({
-    work: ({ dispatch }) => dispatch(fetchBlocksStat()),
-    LoadingComponent: () => <div>Loading...</div>,
-    error: function Error() { return <p>Error</p>; },
-  }),
-  withStyles(styles)
-)(BlockStatChart);
+export default withStyles(styles)(BlockStatChart);
