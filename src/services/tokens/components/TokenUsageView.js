@@ -12,8 +12,10 @@ import TableRow from '@material-ui/core/TableRow';
 import TablePagination from '@material-ui/core/TablePagination';
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
 
-import { fetchTokensUsage } from './../actions';
+import Filter from './../../../components/Filter';
+import { fetchTokensUsage, mutateTokensUsageFilter } from './../actions';
 
 const styles = theme => ({
   row: {
@@ -21,6 +23,9 @@ const styles = theme => ({
   },
   cell: {
     padding: 0
+  },
+  divider: {
+    marginBottom: theme.spacing.unit
   }
 });
 
@@ -41,8 +46,20 @@ class TokenUsageView extends Component {
   };
 
   render() {
-    const { items, classes } = this.props;
+    const { dispatch, isFetching, items, classes, filter } = this.props;
     const { page, rowsPerPage } = this.state;
+
+    const options = [
+      { key: 30, value: "Last 30 days" },
+      { key: 365, value: "Last year" },
+      { key: 0, value: "All time" },
+    ];
+
+    if (isFetching) {
+      return (
+        <div>Loading...</div>
+      )
+    }
 
     return (
       <React.Fragment>
@@ -90,23 +107,33 @@ class TokenUsageView extends Component {
           }}
           onChangePage={this.handleChangePage}
         />
+        <Divider className={classes.divider} />
+        <Filter
+          options={options}
+          filter={filter}
+          onChange={(value) => {
+            dispatch(mutateTokensUsageFilter(value));
+          }} />
       </React.Fragment>
     );
   }
 }
 
 TokenUsageView.propTypes = {
+  dispatch: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
+  filter: PropTypes.number.isRequired,
   items: PropTypes.array.isRequired
 };
 
 export default compose(
   connect(state => {
-    const { isFetching, items } = state.tokens || {
-      isFetching: true,
+    const { filter } = state.tokens.usage || { filter: 30 };
+    const { isFetching = true, items = [] } = state.tokens.usage[filter] || {
+      isFetching: false,
       items: []
     };
-    return { isFetching, items };
+    return { filter, items, isFetching };
   }),
   withJob({
     work: ({ dispatch }) => dispatch(fetchTokensUsage()),
