@@ -12,9 +12,11 @@ import YAxis from 'recharts/lib/cartesian/YAxis';
 import CartesianGrid from 'recharts/lib/cartesian/CartesianGrid';
 import Tooltip from 'recharts/lib/component/Tooltip';
 import Brush from 'recharts/lib/cartesian/Brush';
+import Divider from '@material-ui/core/Divider';
 import moment from 'moment';
 
-import { fetchBlocksStat } from './../actions';
+import Filter from './../../../components/Filter';
+import { fetchBlocksStat, mutateBlocksStatFilter } from './../actions';
 
 const styles = theme => ({
   panel: {
@@ -110,13 +112,24 @@ class BlockStatChart extends Component {
   }
 
   render() {
-    const { classes, items } = this.props;
+    const { dispatch, classes, filter, items, isFetching } = this.props;
+
+    if (isFetching) {
+      return (
+        <div>Loading...</div>
+      )
+    }
 
     if (!items || items.length === 0) {
       return (
         <div>No data</div>
       )
     }
+
+    const options = [
+      { key: "30", value: "Last 30 days" },
+      { key: "0", value: "All time" },
+    ];
 
     return (
       <React.Fragment>
@@ -184,23 +197,31 @@ class BlockStatChart extends Component {
             <Brush />
           </LineChart>
         </ResponsiveContainer>
+        <Divider />
+        <Filter options={options} filter={filter} onChange={(value) => {
+          dispatch(mutateBlocksStatFilter(value));
+        }} />
       </React.Fragment>
     );
   }
 }
 
 BlockStatChart.propTypes = {
+  dispatch: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
+  filter: PropTypes.number.isRequired,
   items: PropTypes.array.isRequired
 };
 
 export default compose(
   connect(state => {
-    const { isFetching, items } = state.blocksStat || {
-      isFetching: true,
+    const { filter } = state.blocks.stat || { filter: 30 };
+    const { isFetching = true, items = [] } = state.blocks.stat[filter] || {
+      isFetching: false,
+      didInvalidate: true,
       items: []
     };
-    return { isFetching, items };
+    return { filter, items, isFetching };
   }),
   withJob({
     work: ({ dispatch }) => dispatch(fetchBlocksStat()),

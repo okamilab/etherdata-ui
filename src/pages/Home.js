@@ -4,11 +4,8 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
 import { Link as RouteLink } from 'react-router-dom';
 
-import Filter from './../components/Filter';
-import Notifier from './../components/Notifier';
 import BlockStatChart from '../services/blocks/components/BlockStatChart';
 
 const styles = theme => ({
@@ -39,12 +36,8 @@ const styles = theme => ({
 function Home({ classes }) {
   return (
     <React.Fragment>
-      <Notifier />
-      {/* <Filter /> */}
       <Paper className={classes.paper + ' ' + classes.paperTop}>
         <BlockStatChart />
-        {/* <Divider />
-        <Filter /> */}
       </Paper>
       <Grid container spacing={24}>
         <Grid item xs={6} sm={4}>
