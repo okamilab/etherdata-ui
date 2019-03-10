@@ -61,6 +61,12 @@ class TokenUsageView extends Component {
       )
     }
 
+    if (!items || items.length === 0) {
+      return (
+        <div>No data</div>
+      )
+    }
+
     return (
       <React.Fragment>
         <Typography variant="h6" color="inherit" noWrap>

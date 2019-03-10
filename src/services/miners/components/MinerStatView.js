@@ -60,6 +60,12 @@ class MinerStatView extends Component {
         <div>Loading...</div>
       )
     }
+    
+    if (!items || items.length === 0) {
+      return (
+        <div>No data</div>
+      )
+    }
 
     return (
       <React.Fragment>
