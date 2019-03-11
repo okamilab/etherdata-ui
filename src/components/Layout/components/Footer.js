@@ -18,7 +18,7 @@ function Footer({ classes }) {
         Etherdata is a Analytics Platform for Ethereum
       </div>
       <div>
-        <span>©</span> {(new Date()).getFullYear()} Etherdata | <Link href={process.env.REACT_APP_GITHUB}>GitHub</Link>
+        <span>©</span> {(new Date()).getFullYear()} OkamiLab | <Link href={process.env.REACT_APP_GITHUB}>GitHub</Link>
       </div>
     </div>
   );
