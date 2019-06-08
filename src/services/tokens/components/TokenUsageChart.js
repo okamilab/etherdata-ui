@@ -13,7 +13,7 @@ import { fetchTokensUsage, mutateTokensUsageFilter } from './../actions';
 const styles = theme => ({
 });
 
-class TokenUsageView extends Component {
+class TokenUsageChart extends Component {
   render() {
     const { dispatch, isFetching, items, filter } = this.props;
 
@@ -67,7 +67,7 @@ class TokenUsageView extends Component {
   }
 }
 
-TokenUsageView.propTypes = {
+TokenUsageChart.propTypes = {
   dispatch: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   filter: PropTypes.number.isRequired,
@@ -89,4 +89,4 @@ export default compose(
     error: function Error() { return <p>Error</p>; },
   }),
   withStyles(styles)
-)(TokenUsageView);
+)(TokenUsageChart);

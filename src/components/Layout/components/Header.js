@@ -12,9 +12,6 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
 const styles = theme => ({
-  appBar: {
-    position: 'relative',
-  },
   menuButton: {
     marginRight: theme.spacing.unit,
   },
@@ -38,7 +35,7 @@ function Header({ classes }) {
   return (
     <>
       <CssBaseline />
-      <AppBar position="absolute" color="default" className={classes.appBar}>
+      <AppBar color="default" className={classes.appBar}>
         <Toolbar>
           <IconButton
             edge="start"
@@ -55,9 +52,15 @@ function Header({ classes }) {
             open={Boolean(anchorEl)}
             onClose={handleClose}
           >
-            <MenuItem onClick={handleClose}>Contracts</MenuItem>
-            <MenuItem onClick={handleClose}>Tokens</MenuItem>
-            <MenuItem onClick={handleClose}>Miners</MenuItem>
+            <MenuItem onClick={handleClose}>
+              <RouteLink to='/contracts' className={classes.link}>Contracts</RouteLink>
+            </MenuItem>
+            <MenuItem onClick={handleClose}>
+              <RouteLink to='/tokens' className={classes.link}>Tokens</RouteLink>
+            </MenuItem>
+            <MenuItem onClick={handleClose}>
+              <RouteLink to='/miners' className={classes.link}>Miners</RouteLink>
+            </MenuItem>
           </Menu>
           <RouteLink to='/' className={classes.link}>
             <Typography variant="h6" color="inherit" noWrap>

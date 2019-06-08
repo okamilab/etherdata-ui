@@ -6,8 +6,12 @@ import Link from '@material-ui/core/Link';
 const styles = theme => ({
   footer: {
     textAlign: 'center',
+    backgroundColor: '#f5f5f5',
     paddingTop: theme.spacing.unit * 3,
-    paddingBottom: theme.spacing.unit * 2
+    paddingBottom: theme.spacing.unit * 3,
+    position: 'absolute',
+    bottom: 0,
+    width: '100%'
   }
 });
 
@@ -23,7 +27,6 @@ function Footer({ classes }) {
     </div>
   );
 }
-
 
 Footer.propTypes = {
   classes: PropTypes.object.isRequired,
