@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Paper from '@material-ui/core/Paper';
 
-import HomeNav from './../../../components/HomeNav';
 import MinerStatView from './../components/MinerStatView';
 
 const styles = theme => ({
@@ -22,7 +21,6 @@ const styles = theme => ({
 function Miners({ classes }) {
   return (
     <>
-      <HomeNav />
       <Paper className={classes.paper}>
         <MinerStatView />
       </Paper>
