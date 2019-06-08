@@ -12,6 +12,7 @@
     "moment": "^2.23.0",
     "react": "^16.8.1",
     "react-dom": "^16.8.1",
+    "react-google-charts": "3.0.13",
     "react-helmet-async": "^0.2.0",
     "react-hot-loader": "^4.6.5",
     "react-jobs": "^1.0.1",

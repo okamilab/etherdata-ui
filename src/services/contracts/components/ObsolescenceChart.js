@@ -65,7 +65,7 @@ class ObsolescenceChart extends Component {
     let list = items.map((x, i) => { return { w: i + 1, c: x } })
 
     return (
-      <React.Fragment>
+      <>
         <Typography variant="h6" color="inherit" noWrap>
           Contract obsolescence
         </Typography>
@@ -86,7 +86,7 @@ class ObsolescenceChart extends Component {
             <Tooltip content={<ObsolescenceTooltip classes={classes} />} />
           </BarChart>
         </ResponsiveContainer>
-      </React.Fragment>
+      </>
     )
   }
 }

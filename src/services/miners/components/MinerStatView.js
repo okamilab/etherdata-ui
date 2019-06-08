@@ -68,7 +68,7 @@ class MinerStatView extends Component {
     }
 
     return (
-      <React.Fragment>
+      <>
         <Typography variant="h6" color="inherit" noWrap>
           Top miners
         </Typography>
@@ -120,7 +120,7 @@ class MinerStatView extends Component {
           onChange={(value) => {
             dispatch(mutateMinersStatFilter(value));
           }} />
-      </React.Fragment>
+      </>
     );
   }
 }

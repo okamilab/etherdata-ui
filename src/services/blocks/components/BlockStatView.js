@@ -38,7 +38,7 @@ class BlockStatView extends Component {
     ];
 
     return (
-      <React.Fragment>
+      <>
         <BlockStatChart items={items} />
         <Divider className={classes.divider} />
         <Filter
@@ -47,7 +47,7 @@ class BlockStatView extends Component {
           onChange={(value) => {
             dispatch(mutateBlocksStatFilter(value));
           }} />
-      </React.Fragment>
+      </>
     );
   }
 }

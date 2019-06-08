@@ -21,12 +21,12 @@ const styles = theme => ({
 
 function Miners({ classes }) {
   return (
-    <React.Fragment>
+    <>
       <HomeNav />
       <Paper className={classes.paper}>
         <MinerStatView />
       </Paper>
-    </React.Fragment>
+    </>
   );
 }
 

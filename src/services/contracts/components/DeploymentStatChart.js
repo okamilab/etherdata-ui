@@ -54,7 +54,7 @@ class DeploymentStatChart extends Component {
     }
 
     return (
-      <React.Fragment>
+      <>
         <Typography variant="h6" color="inherit" noWrap>
           Contract deployments
         </Typography>
@@ -87,7 +87,7 @@ class DeploymentStatChart extends Component {
             <Brush />
           </LineChart>
         </ResponsiveContainer>
-      </React.Fragment>
+      </>
     );
   }
 }

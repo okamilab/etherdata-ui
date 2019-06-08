@@ -108,7 +108,7 @@ class BlockStatChart extends Component {
     const { classes, items } = this.props;
 
     return (
-      <React.Fragment>
+      <>
         <div className={classes.panel}>
           {
             this.state.tabs.map((t) => {
@@ -173,7 +173,7 @@ class BlockStatChart extends Component {
             <Brush />
           </LineChart>
         </ResponsiveContainer>
-      </React.Fragment>
+      </>
     );
   }
 }

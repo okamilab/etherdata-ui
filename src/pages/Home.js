@@ -35,7 +35,7 @@ const styles = theme => ({
 
 function Home({ classes }) {
   return (
-    <React.Fragment>
+    <>
       <Paper className={classes.paper + ' ' + classes.paperTop}>
         <BlockStatView />
       </Paper>
@@ -68,7 +68,7 @@ function Home({ classes }) {
           </RouteLink>
         </Grid>
       </Grid>
-    </React.Fragment>
+    </>
   );
 }
 

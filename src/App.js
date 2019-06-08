@@ -10,7 +10,7 @@ import Miners from './services/miners/pages/Miners'
 
 export default function App() {
   return (
-    <React.Fragment>
+    <>
       <Helmet titleTemplate='Etherdata - %s' />
       <Layout>
         <Switch>
@@ -20,6 +20,6 @@ export default function App() {
           <Route exact path='/miners' component={Miners} />
         </Switch>
       </Layout>
-    </React.Fragment>
+    </>
   );
 }

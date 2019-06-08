@@ -68,7 +68,7 @@ class TokenUsageView extends Component {
     }
 
     return (
-      <React.Fragment>
+      <>
         <Typography variant="h6" color="inherit" noWrap>
           Most used tokens
         </Typography>
@@ -120,7 +120,7 @@ class TokenUsageView extends Component {
           onChange={(value) => {
             dispatch(mutateTokensUsageFilter(value));
           }} />
-      </React.Fragment>
+      </>
     );
   }
 }

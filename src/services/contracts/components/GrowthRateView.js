@@ -13,9 +13,9 @@ class GrowthRateView extends Component {
       .reduce((acc, x) => acc + x);
 
     return (
-      <React.Fragment>
+      <>
         {parseFloat(value / data.length).toFixed(2)}%
-      </React.Fragment>
+      </>
     );
   }
 }
