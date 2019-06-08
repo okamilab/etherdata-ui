@@ -52,7 +52,8 @@ class Erc721StatChart extends Component {
           }]}
           rows={data}
           options={{
-            vAxis: { minValue: 0 }
+            vAxis: { minValue: 0 },
+            legend: { position: 'none' }
           }}
           rootProps={{ 'data-testid': '1' }} />
       </>
