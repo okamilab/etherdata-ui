@@ -53,7 +53,17 @@ class Erc721StatChart extends Component {
           rows={data}
           options={{
             vAxis: { minValue: 0 },
-            legend: { position: 'none' }
+            trendlines: {
+              0: {
+                type: 'polynomial',
+                degree: 5,
+                color: 'green',
+                visibleInLegend: true,
+                labelInLegend: 'Trend',
+                lineWidth: 1,
+                opacity: 0.5,
+              },
+            },
           }}
           rootProps={{ 'data-testid': '1' }} />
       </>

@@ -5,7 +5,9 @@ import { connect } from 'react-redux';
 import { withJob } from 'react-jobs';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
-import { Chart } from "react-google-charts";
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import { Chart } from 'react-google-charts';
 
 import { fetchErc721Usage } from './../actions';
 
@@ -13,6 +15,20 @@ const styles = theme => ({
 });
 
 class Erc721StatChart extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      selectedTab: 0
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(_, newValue) {
+    this.setState({ selectedTab: newValue });
+  }
+
   render() {
     const { isFetching, items } = this.props;
 
@@ -40,7 +56,9 @@ class Erc721StatChart extends Component {
       });
 
     const data = [];
+    const dataAgg = [];
 
+    let sum = 0;
     let entry = new Array(columns.length).fill(null);
     entry[0] = items[0].d;
     items.forEach(i => {
@@ -48,11 +66,15 @@ class Erc721StatChart extends Component {
         // fixes type for date
         entry[0] = new Date(entry[0]);
         data.push(entry);
+        dataAgg.push([new Date(entry[0]), sum]);
+
         entry = new Array(columns.length).fill(null);
         entry[0] = i.d;
+        sum = 0;
       }
 
       entry[addressMap[i.a] + 1] = i.c;
+      sum += i.c;
     });
 
     return (
@@ -60,7 +82,36 @@ class Erc721StatChart extends Component {
         <Typography variant="h6" color="inherit" noWrap>
           ERC-721 usage
         </Typography>
-        <Chart
+        <Tabs
+          value={this.state.selectedTab}
+          onChange={this.handleChange}
+          indicatorColor="primary"
+          textColor="primary"
+          centered>
+          <Tab label="Aggregated" />
+          <Tab label="By token" />
+        </Tabs>
+        {this.state.selectedTab === 0 && <Chart
+          height={'600px'}
+          chartType="AreaChart"
+          loader={<div>Loading Chart</div>}
+          columns={[{ type: "date", label: "Date" }, { type: "number", label: "All" }]}
+          rows={dataAgg}
+          options={{
+            trendlines: {
+              0: {
+                type: 'polynomial',
+                degree: 5,
+                color: 'green',
+                visibleInLegend: true,
+                labelInLegend: 'Trend',
+                lineWidth: 1,
+                opacity: 0.5,
+              },
+            },
+          }}
+          rootProps={{ 'data-testid': '1' }} />}
+        {this.state.selectedTab === 1 && <Chart
           height={'600px'}
           chartType="AreaChart"
           loader={<div>Loading Chart</div>}
@@ -68,10 +119,9 @@ class Erc721StatChart extends Component {
           rows={data}
           options={{
             isStacked: true,
-            // hAxis: { title: 'Date', titleTextStyle: { color: '#333' } },
-            interpolateNulls: true
+            interpolateNulls: true,
           }}
-          rootProps={{ 'data-testid': '1' }} />
+          rootProps={{ 'data-testid': '1' }} />}
       </>
     );
   }
