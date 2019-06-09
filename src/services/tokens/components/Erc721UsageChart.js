@@ -95,7 +95,7 @@ class Erc721StatChart extends Component {
           height={'600px'}
           chartType="AreaChart"
           loader={<div>Loading Chart</div>}
-          columns={[{ type: "date", label: "Date" }, { type: "number", label: "All" }]}
+          columns={[{ type: "date", label: "Date" }, { type: "number", label: "Transactions" }]}
           rows={dataAgg}
           options={{
             trendlines: {
