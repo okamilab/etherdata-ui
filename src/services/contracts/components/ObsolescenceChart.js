@@ -4,6 +4,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withJob } from 'react-jobs';
 import withStyles from '@material-ui/core/styles/withStyles';
+import Paper from '@material-ui/core/Paper';
 import ResponsiveContainer from 'recharts/lib/component/ResponsiveContainer';
 import BarChart from 'recharts/lib/chart/BarChart';
 import Bar from 'recharts/lib/cartesian/Bar';
@@ -26,6 +27,16 @@ const styles = theme => ({
   },
   mb2: {
     marginBottom: theme.spacing.unit * 2,
+  },
+  paper: {
+    marginTop: theme.spacing.unit * 3,
+    marginBottom: theme.spacing.unit * 3,
+    padding: theme.spacing.unit * 2,
+    [theme.breakpoints.up(600 + theme.spacing.unit * 3 * 2)]: {
+      marginTop: theme.spacing.unit * 4,
+      marginBottom: theme.spacing.unit * 4,
+      padding: theme.spacing.unit * 3,
+    },
   },
 });
 
@@ -57,15 +68,13 @@ class ObsolescenceChart extends Component {
     const { classes, items } = this.props;
 
     if (!items || items.length === 0) {
-      return (
-        <div>No data</div>
-      )
+      return null;
     }
 
     let list = items.map((x, i) => { return { w: i + 1, c: x } })
 
     return (
-      <>
+      <Paper className={classes.paper}>
         <Typography variant="h6" color="inherit" noWrap>
           Contract obsolescence
         </Typography>
@@ -86,7 +95,7 @@ class ObsolescenceChart extends Component {
             <Tooltip content={<ObsolescenceTooltip classes={classes} />} />
           </BarChart>
         </ResponsiveContainer>
-      </>
+      </Paper>
     )
   }
 }

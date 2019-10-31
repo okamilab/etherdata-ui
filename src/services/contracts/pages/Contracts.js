@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Paper from '@material-ui/core/Paper';
 
+import SearchBox from './../../vulnerabilities/components/SearchBox';
 import ObsolescenceChart from './../components/ObsolescenceChart';
 import DeploymentsView from './../components/DeploymentsView';
 
@@ -23,8 +24,9 @@ function Contracts({ classes }) {
   return (
     <>
       <Paper className={classes.paper}>
-        <ObsolescenceChart />
+        <SearchBox />
       </Paper>
+      <ObsolescenceChart />
       <DeploymentsView />
     </>
   );

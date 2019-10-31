@@ -1,53 +1,53 @@
 import {
-  CONTRACTS_OBSOLESCENCE_REQUEST,
-  CONTRACTS_OBSOLESCENCE_RECEIVE,
-  CONTRACTS_DEPLOYMENTS_REQUEST,
-  CONTRACTS_DEPLOYMENTS_RECEIVE
+  PROCESSING_STAT_REQUEST,
+  PROCESSING_STAT_RECEIVE,
+  ISSUES_STAT_REQUEST,
+  ISSUES_STAT_RECEIVE
 } from './actions';
 
 export const initialState = {
-  obsolescence: {
+  processing: {
     isFetching: false,
     didInvalidate: true,
-    items: []
+    data: {}
   },
-  deployments: {
+  issues: {
     isFetching: false,
     didInvalidate: true,
-    items: []
+    data: []
   }
 };
 
 export default function reduce(state = initialState, action) {
   switch (action.type) {
-    case CONTRACTS_OBSOLESCENCE_REQUEST:
+    case PROCESSING_STAT_REQUEST:
       return Object.assign({}, state, {
-        obsolescence: {
+        processing: {
           isFetching: true,
           didInvalidate: false
         }
       });
-    case CONTRACTS_OBSOLESCENCE_RECEIVE:
+    case PROCESSING_STAT_RECEIVE:
       return Object.assign({}, state, {
-        obsolescence: {
+        processing: {
           isFetching: false,
           didInvalidate: false,
-          items: action.contracts
+          data: action.data
         }
       });
-    case CONTRACTS_DEPLOYMENTS_REQUEST:
+    case ISSUES_STAT_REQUEST:
       return Object.assign({}, state, {
-        deployments: {
+        issues: {
           isFetching: true,
           didInvalidate: false
         }
       });
-    case CONTRACTS_DEPLOYMENTS_RECEIVE:
+    case ISSUES_STAT_RECEIVE:
       return Object.assign({}, state, {
-        deployments: {
+        issues: {
           isFetching: false,
           didInvalidate: false,
-          items: action.contracts
+          data: action.data
         }
       });
     default:
