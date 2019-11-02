@@ -9,6 +9,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import InputBase from '@material-ui/core/InputBase';
 import Paper from '@material-ui/core/Paper';
 
+import Loader from './../../../components/Loader';
 import { fetchPublicKey } from './../actions';
 
 const styles = theme => ({
@@ -48,6 +49,9 @@ const styles = theme => ({
       padding: theme.spacing.unit * 3,
     },
   },
+  error: {
+    color: theme.palette.error.dark,
+  },
 });
 
 function Lookup({ classes, isFetching, dispatch, data }) {
@@ -73,6 +77,11 @@ function Lookup({ classes, isFetching, dispatch, data }) {
           />
         </div>
       </Toolbar>
+      {isFetching && <Loader />}
+      {data.error && <>
+        <hr />
+        <Typography className={classes.error}>{data.error.message}</Typography>
+      </>}
       {(data.address || data.ens) && <>
         <hr />
         <Typography component='div'>
