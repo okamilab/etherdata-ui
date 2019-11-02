@@ -7,6 +7,7 @@ import miners from './../services/miners/reducer';
 import vulnerabilities from './../services/vulnerabilities/reducer';
 import analyses from '../services/analyses/reducer';
 import stats from '../services/stats/reducer';
+import publicKey from '../services/publicKeys/reducer';
 
 export default combineReducers({
   blocks,
@@ -15,5 +16,6 @@ export default combineReducers({
   miners,
   analyses,
   stats,
-  vulnerabilities
+  vulnerabilities,
+  publicKey
 });

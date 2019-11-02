@@ -61,6 +61,9 @@ function Header({ classes }) {
             <MenuItem onClick={handleClose}>
               <RouteLink to='/miners' className={classes.link}>Miners</RouteLink>
             </MenuItem>
+            <MenuItem onClick={handleClose}>
+              <RouteLink to='/publicKeys' className={classes.link}>Public Keys</RouteLink>
+            </MenuItem>
           </Menu>
           <RouteLink to='/' className={classes.link}>
             <Typography variant="h6" color="inherit" noWrap>

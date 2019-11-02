@@ -11,6 +11,7 @@ import Stats from './services/stats/pages/Stats';
 import Tokens from './services/tokens/pages/Tokens';
 import Erc721 from './services/tokens/pages/Erc721';
 import Miners from './services/miners/pages/Miners';
+import PublicKeys from './services/publicKeys/pages/Lookup';
 
 export default function App() {
   return (
@@ -27,6 +28,7 @@ export default function App() {
           <Route exact path='/tokens' component={Tokens} />
           <Route exact path='/tokens/erc721' component={Erc721} />
           <Route exact path='/miners' component={Miners} />
+          <Route exact path='/publicKeys' component={PublicKeys} />
         </Switch>
       </Layout>
     </>

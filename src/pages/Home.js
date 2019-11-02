@@ -67,6 +67,15 @@ function Home({ classes }) {
             </Paper>
           </RouteLink>
         </Grid>
+        <Grid item xs={6} sm={4}>
+          <RouteLink to={'/publicKeys'} className={classes.link}>
+            <Paper className={classes.paper}>
+              <Typography variant="h6" color="inherit" noWrap>
+                Public Keys
+              </Typography>
+            </Paper>
+          </RouteLink>
+        </Grid>
       </Grid>
     </>
   );
